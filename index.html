@@ -3,48 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Botpress Webchat -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <style>
-    body{font-family:Arial, sans-serif;margin:1rem;background:#f9f9f9;line-height:1.6;padding-bottom:100px}
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+    body{font-family:Arial, sans-serif;margin:1rem;background:#f9f9f9;line-height:1.6;padding-bottom:120px}
     h1{color:#2e8b57;font-size:1.5rem}
     section{margin-bottom:2rem}
-    .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px}
-    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:4px;font-size:1rem;width:100%;touch-action:manipulation}
-    .btn:hover{background:#246d43}
-    .btn:active{transform:scale(0.98)}
-    /* Lignes cliquables - AMÉLIORÉ POUR MOBILE */
+    .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px;position:relative;z-index:10}
+    .btn{background:#2e8b57;color:#fff;padding:1.2rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:8px;font-size:1.1rem;width:100%;font-weight:bold}
+    .btn:active{background:#1a5c34}
+    
+    /* OPTIONS - CRITIQUES POUR MOBILE */
     .quiz ul{list-style:none;padding:0;margin:1rem 0}
     .quiz li{
       cursor:pointer;
-      padding:1rem;
+      padding:1.2rem;
       border-radius:8px;
-      margin:.5rem 0;
-      border:2px solid #ddd;
+      margin:0.8rem 0;
+      border:3px solid #ddd;
       background:#fff;
-      transition:all 0.2s ease;
       user-select:none;
-      -webkit-tap-highlight-color:transparent;
-      touch-action:manipulation;
-      min-height:50px;
+      min-height:60px;
       display:flex;
       align-items:center;
+      font-size:1rem;
+      position:relative;
+      z-index:100;
     }
-    .quiz li:hover{background:#f0f0f0}
-    .quiz li:active{transform:scale(0.98)}
-    .quiz li.selected{background:#d4f1d4;border-color:#2e8b57;font-weight:bold}
-    /* Chat widget */
-    #webchat{position:fixed;bottom:20px;right:20px;width:min(380px, calc(100vw - 40px));height:min(500px, calc(100vh - 100px));z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
+    .quiz li.selected{
+      background:#d4f1d4;
+      border-color:#2e8b57;
+      font-weight:bold;
+      box-shadow:0 2px 8px rgba(46,139,87,0.3);
+    }
+    
+    /* Chat widget - DERRIÈRE le quiz */
+    #webchat{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      width:min(380px, calc(100vw - 40px));
+      height:min(500px, calc(100vh - 100px));
+      z-index:1;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+    }
     #webchat .bpFab{display:none;}
     
-    /* Responsive */
     @media (max-width: 600px) {
-      body{margin:0.5rem}
+      body{margin:0.5rem;padding-bottom:150px}
       h1{font-size:1.3rem}
-      .quiz{padding:0.8rem}
-      .quiz li{padding:0.8rem;font-size:0.95rem}
-      #webchat{width:calc(100vw - 20px);height:calc(100vh - 80px);bottom:10px;right:10px}
+      .quiz{padding:1rem}
+      .quiz li{padding:1rem;font-size:1rem;min-height:55px}
+      #webchat{
+        width:calc(100vw - 20px);
+        height:calc(100vh - 100px);
+        bottom:10px;
+        right:10px;
+        left:10px;
+        margin:0 auto;
+      }
     }
   </style>
 </head>
@@ -63,84 +86,101 @@
       <li data-index="2">Il est plus rapide que la lumière</li>
       <li data-index="3">Il ne contient aucune énergie</li>
     </ul>
-    <button class="btn">Valider</button>
+    <button class="btn" id="validate-btn">Valider</button>
   </section>
   <!-- AstroBot -->
   <div id="webchat"></div>
   <script>
-    /* ----------  QUIZ  ---------- */
-    const btn   = document.querySelector('.btn');
-    const items = document.querySelectorAll('#quiz-options li');
-    const BONNE_INDEX = 0;
-    
+    /* ----------  QUIZ - VERSION MOBILE OPTIMISÉE  ---------- */
     let selectedIndex = null;
+    const BONNE_INDEX = 0;
 
-    items.forEach((li) => {
-      // Utiliser touchstart ET click pour mobile et desktop
-      const handleSelect = (e) => {
-        e.preventDefault(); // Empêche le double-clic sur mobile
-        
-        // Retirer la classe selected de tous les items
-        items.forEach(i => i.classList.remove('selected'));
-        
-        // Ajouter la classe selected à l'item cliqué
-        li.classList.add('selected');
-        
-        // Stocker l'index sélectionné
-        selectedIndex = parseInt(li.getAttribute('data-index'));
-        
-        console.log('Index sélectionné:', selectedIndex);
-      };
-      
-      // Écouter les deux événements
-      li.addEventListener('touchstart', handleSelect, {passive: false});
-      li.addEventListener('click', handleSelect);
-    });
+    // Attendre que le DOM soit chargé
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('#quiz-options li');
+      const btn = document.getElementById('validate-btn');
 
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      if (selectedIndex === null) {
-        alert('❌ Choisis une réponse avant de valider.');
-        return;
-      }
-      
-      if (selectedIndex === BONNE_INDEX) {
-        alert('✅ Bonne réponse !');
-      } else {
-        alert('❌ Mauvaise réponse.');
-      }
+      // Gestion de la sélection
+      items.forEach((li) => {
+        // Fonction de sélection
+        function selectOption() {
+          // Retirer toutes les sélections
+          items.forEach(i => i.classList.remove('selected'));
+          
+          // Sélectionner celle-ci
+          li.classList.add('selected');
+          selectedIndex = parseInt(li.getAttribute('data-index'));
+          
+          console.log('✓ Option sélectionnée:', selectedIndex);
+        }
+
+        // ÉVÉNEMENTS MULTIPLES pour compatibilité maximale
+        li.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          selectOption();
+        }, { passive: false });
+
+        li.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          selectOption();
+        });
+
+        li.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          selectOption();
+        });
+      });
+
+      // Gestion de la validation
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (selectedIndex === null) {
+          alert('❌ Choisis une réponse avant de valider.');
+          return;
+        }
+        
+        if (selectedIndex === BONNE_INDEX) {
+          alert('✅ Bonne réponse !');
+        } else {
+          alert('❌ Mauvaise réponse. La bonne réponse était : "Il est thermique et aléatoire"');
+        }
+      });
     });
 
     /* ----------  AstroBot  ---------- */
-    window.addEventListener('DOMContentLoaded', () => {
-      window.botpress.init({
-        "botId": "fb41640b-a827-4e39-8690-4a617035f277",
-        "configuration": {
-          "version": "v2",
-          "website": {},
-          "email": {},
-          "phone": {},
-          "termsOfService": {},
-          "privacyPolicy": {},
-          "color": "#3276EA",
-          "variant": "solid",
-          "headerVariant": "glass",
-          "themeMode": "light",
-          "fontFamily": "inter",
-          "radius": 4,
-          "feedbackEnabled": false,
-          "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-          "soundEnabled": false,
-          "proactiveMessageEnabled": false,
-          "proactiveBubbleMessage": "Hi! 👋 Need help?",
-          "proactiveBubbleTriggerType": "afterDelay",
-          "proactiveBubbleDelayTime": 10
-        },
-        "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-        "selector": "#webchat"
-      });
-      window.botpress.on("webchat:ready", () => window.botpress.open());
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        window.botpress.init({
+          "botId": "fb41640b-a827-4e39-8690-4a617035f277",
+          "configuration": {
+            "version": "v2",
+            "website": {},
+            "email": {},
+            "phone": {},
+            "termsOfService": {},
+            "privacyPolicy": {},
+            "color": "#3276EA",
+            "variant": "solid",
+            "headerVariant": "glass",
+            "themeMode": "light",
+            "fontFamily": "inter",
+            "radius": 4,
+            "feedbackEnabled": false,
+            "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+            "soundEnabled": false,
+            "proactiveMessageEnabled": false,
+            "proactiveBubbleMessage": "Hi! 👋 Need help?",
+            "proactiveBubbleTriggerType": "afterDelay",
+            "proactiveBubbleDelayTime": 10
+          },
+          "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+          "selector": "#webchat"
+        });
+        window.botpress.on("webchat:ready", () => window.botpress.open());
+      }, 500);
     });
   </script>
 </body>
