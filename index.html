@@ -7,6 +7,7 @@
 
   <!-- Botpress Webchat -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+
   <style>
     body{font-family:Arial, sans-serif;margin:2rem;background:#f9f9f9;line-height:1.6}
     h1{color:#2e8b57}
@@ -46,34 +47,31 @@
   <!-- AstroBot -->
   <div id="webchat"></div>
 
-  <!-- Scripts mis en fin de body pour éviter tout chargement tardif -->
   <script>
-  /* Quiz interactif */
-const btn   = document.querySelector('.btn');
-const items = document.querySelectorAll('.quiz li');
-const BONNE_INDEX = 0; // 1ᵉ ligne = bonne réponse
+    /* ----------  QUIZ  ---------- */
+    const btn   = document.querySelector('.btn');
+    const items = document.querySelectorAll('.quiz li');
+    const BONNE_INDEX = 0;   // 1ᵉ ligne = bonne réponse
 
-items.forEach((li, idx) => li.addEventListener('click', () => {
-  items.forEach(i => i.style.background = '');
-  li.style.background = '#d4f1d4';
-  li.dataset.index = idx; // on stocke l’index
-}));
-
-btn.addEventListener('click', () => {
-  const chosen = document.querySelector('.quiz li[data-index]');
-  if (!chosen) { alert('❌ Choisis une réponse avant de valider.'); return; }
-  const ok = Number(chosen.dataset.index) === BONNE_INDEX;
-  alert(ok ? '✅ Bonne réponse !' : '❌ Essaye encore.');
-});
+    items.forEach((li, idx) =>
+      li.addEventListener('click', () => {
+        items.forEach(i => i.style.background = '');
+        li.style.background = '#d4f1d4';
+        li.dataset.index = idx;          // on mémorise le choix
+      })
+    );
 
     btn.addEventListener('click', () => {
-      const chosen = document.querySelector('.quiz li[data-chosen]');
-      if (!chosen) { alert('❌ Choisis une réponse avant de valider.'); return; }
-      const ok = chosen.textContent === 'Il est thermique et aléatoire';
+      const chosen = document.querySelector('.quiz li[data-index]');
+      if (!chosen) {
+        alert('❌ Choisis une réponse avant de valider.');
+        return;
+      }
+      const ok = Number(chosen.dataset.index) === BONNE_INDEX;
       alert(ok ? '✅ Bonne réponse !' : '❌ Essaye encore.');
     });
 
-    /* AstroBot : attend que le DOM soit prêt */
+    /* ----------  AstroBot  ---------- */
     window.addEventListener('DOMContentLoaded', () => {
       window.botpress.init({
         "botId": "fb41640b-a827-4e39-8690-4a617035f277",
