@@ -7,20 +7,45 @@
   <!-- Botpress Webchat -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <style>
-    body{font-family:Arial, sans-serif;margin:2rem;background:#f9f9f9;line-height:1.6}
-    h1{color:#2e8b57}
+    body{font-family:Arial, sans-serif;margin:1rem;background:#f9f9f9;line-height:1.6;padding-bottom:100px}
+    h1{color:#2e8b57;font-size:1.5rem}
     section{margin-bottom:2rem}
     .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px}
-    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:4px;font-size:1rem}
+    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:4px;font-size:1rem;width:100%;touch-action:manipulation}
     .btn:hover{background:#246d43}
-    /* Lignes cliquables */
-    .quiz ul{list-style:none;padding:0}
-    .quiz li{cursor:pointer;padding:.5rem;border-radius:4px;margin:.25rem 0;border:1px solid #ddd}
+    .btn:active{transform:scale(0.98)}
+    /* Lignes cliquables - AMÉLIORÉ POUR MOBILE */
+    .quiz ul{list-style:none;padding:0;margin:1rem 0}
+    .quiz li{
+      cursor:pointer;
+      padding:1rem;
+      border-radius:8px;
+      margin:.5rem 0;
+      border:2px solid #ddd;
+      background:#fff;
+      transition:all 0.2s ease;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+      min-height:50px;
+      display:flex;
+      align-items:center;
+    }
     .quiz li:hover{background:#f0f0f0}
-    .quiz li.selected{background:#d4f1d4;border-color:#2e8b57}
+    .quiz li:active{transform:scale(0.98)}
+    .quiz li.selected{background:#d4f1d4;border-color:#2e8b57;font-weight:bold}
     /* Chat widget */
     #webchat{position:fixed;bottom:20px;right:20px;width:min(380px, calc(100vw - 40px));height:min(500px, calc(100vh - 100px));z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
     #webchat .bpFab{display:none;}
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+      body{margin:0.5rem}
+      h1{font-size:1.3rem}
+      .quiz{padding:0.8rem}
+      .quiz li{padding:0.8rem;font-size:0.95rem}
+      #webchat{width:calc(100vw - 20px);height:calc(100vh - 80px);bottom:10px;right:10px}
+    }
   </style>
 </head>
 <body>
@@ -46,12 +71,15 @@
     /* ----------  QUIZ  ---------- */
     const btn   = document.querySelector('.btn');
     const items = document.querySelectorAll('#quiz-options li');
-    const BONNE_INDEX = 0; // ✅ La première réponse (index 0) est bonne
+    const BONNE_INDEX = 0;
     
     let selectedIndex = null;
 
-    items.forEach((li, index) => {
-      li.addEventListener('click', () => {
+    items.forEach((li) => {
+      // Utiliser touchstart ET click pour mobile et desktop
+      const handleSelect = (e) => {
+        e.preventDefault(); // Empêche le double-clic sur mobile
+        
         // Retirer la classe selected de tous les items
         items.forEach(i => i.classList.remove('selected'));
         
@@ -61,17 +89,21 @@
         // Stocker l'index sélectionné
         selectedIndex = parseInt(li.getAttribute('data-index'));
         
-        console.log('Index sélectionné:', selectedIndex); // Pour déboguer
-      });
+        console.log('Index sélectionné:', selectedIndex);
+      };
+      
+      // Écouter les deux événements
+      li.addEventListener('touchstart', handleSelect, {passive: false});
+      li.addEventListener('click', handleSelect);
     });
 
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
       if (selectedIndex === null) {
         alert('❌ Choisis une réponse avant de valider.');
         return;
       }
-      
-      console.log('Vérification:', selectedIndex, '===', BONNE_INDEX); // Pour déboguer
       
       if (selectedIndex === BONNE_INDEX) {
         alert('✅ Bonne réponse !');
@@ -112,4 +144,4 @@
     });
   </script>
 </body>
-</html>       
+</html>
