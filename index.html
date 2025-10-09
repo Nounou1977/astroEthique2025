@@ -13,7 +13,7 @@
     h1{color:#2e8b57;font-size:1.5rem}
     section{margin-bottom:2rem}
     .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px}
-    .btn{background:#2e8b57;color:#fff;padding:1.2rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:8px;font-size:1.1rem;width:100%;font-weight:bold;position:relative;z-index:10}
+    .btn{background:#2e8b57;color:#fff;padding:1.2rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:8px;font-size:1.1rem;width:100%;font-weight:bold}
     .btn:active{background:#1a5c34}
 
     /* OPTIONS AVEC RADIO BUTTONS */
@@ -29,8 +29,6 @@
       cursor:pointer;
       transition:all 0.2s ease;
       min-height:55px;
-      position:relative;
-      z-index:10;
     }
     .quiz label:hover{background:#f0f0f0}
     .quiz input[type="radio"]{
@@ -50,10 +48,28 @@
       box-shadow:0 2px 8px rgba(46,139,87,0.3);
     }
 
-    /* Chat widget */
-    #webchat{
+    /* BOUTON CHAT ROND */
+    #chatToggle{
       position:fixed;
       bottom:20px;
+      right:20px;
+      width:56px;
+      height:56px;
+      border-radius:50%;
+      background:#3276EA;
+      color:#fff;
+      border:none;
+      font-size:24px;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+      z-index:1001;
+      cursor:pointer;
+    }
+
+    /* CONTENEUR CHAT (caché par défaut) */
+    #webchat{
+      display:none;
+      position:fixed;
+      bottom:80px;
       right:20px;
       width:min(380px, calc(100vw - 40px));
       height:min(500px, calc(100vh - 100px));
@@ -61,7 +77,6 @@
       border-radius:8px;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
     }
-    #webchat .bpFab{display:none;}
 
     @media (max-width: 600px) {
       body{margin:0.5rem;padding-bottom:150px}
@@ -72,6 +87,10 @@
       #webchat{
         width:calc(100vw - 20px);
         height:calc(100vh - 100px);
+        bottom:70px;
+        right:10px;
+      }
+      #chatToggle{
         bottom:10px;
         right:10px;
       }
@@ -120,68 +139,61 @@
     </form>
   </section>
   
-  <!-- AstroBot -->
+  <!-- BOUTON CHAT -->
+  <button id="chatToggle" aria-label="Ouvrir le chat">💬</button>
+
+  <!-- CONTENEUR CHAT -->
   <div id="webchat"></div>
   
   <script>
     /* ----------  QUIZ  ---------- */
-    const BONNE_REPONSE = "0"; // La première réponse est bonne
-    
+    const BONNE_REPONSE = "0"; // première réponse = bonne
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      
-      // Récupérer la réponse sélectionnée
-      const reponseSelectionnee = document.querySelector('input[name="reponse"]:checked');
-      
-      if (!reponseSelectionnee) {
+      const choix = document.querySelector('input[name="reponse"]:checked');
+      if (!choix) {
         alert('❌ Choisis une réponse avant de valider.');
         return;
       }
-      
-      const valeur = reponseSelectionnee.value;
-      
-      if (valeur === BONNE_REPONSE) {
-        alert('✅ Bonne réponse !');
-      } else {
-        alert('❌ Mauvaise réponse. La bonne réponse était : "Il est thermique et aléatoire"');
+      alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
+    });
+
+    /* ----------  CHATBOT  ---------- */
+    let chatLoaded = false;
+    document.getElementById('chatToggle').onclick = () => {
+      const chat = document.getElementById('webchat');
+      if (!chatLoaded) {
+        window.botpress.init({
+          "botId": "fb41640b-a827-4e39-8690-4a617035f277",
+          "configuration": {
+            "version": "v2",
+            "website": {},
+            "email": {},
+            "phone": {},
+            "termsOfService": {},
+            "privacyPolicy": {},
+            "color": "#3276EA",
+            "variant": "solid",
+            "headerVariant": "glass",
+            "themeMode": "light",
+            "fontFamily": "inter",
+            "radius": 4,
+            "feedbackEnabled": false,
+            "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+            "soundEnabled": false,
+            "proactiveMessageEnabled": false,
+            "proactiveBubbleMessage": "Hi! 👋 Need help?",
+            "proactiveBubbleTriggerType": "afterDelay",
+            "proactiveBubbleDelayTime": 10
+          },
+          "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+          "selector": "#webchat"
+        });
+        chatLoaded = true;
       }
-    });
-
-    /* ----------  AstroBot  ---------- */
-    window.addEventListener('DOMContentLoaded', () => {
-      window.botpress.init({
-        "botId": "fb41640b-a827-4e39-8690-4a617035f277",
-        "configuration": {
-          "version": "v2",
-          "website": {},
-          "email": {},
-          "phone": {},
-          "termsOfService": {},
-          "privacyPolicy": {},
-          "color": "#3276EA",
-          "variant": "solid",
-          "headerVariant": "glass",
-          "themeMode": "light",
-          "fontFamily": "inter",
-          "radius": 4,
-          "feedbackEnabled": false,
-          "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-          "soundEnabled": false,
-          "proactiveMessageEnabled": false,
-          "proactiveBubbleMessage": "Hi! 👋 Need help?",
-          "proactiveBubbleTriggerType": "afterDelay",
-          "proactiveBubbleDelayTime": 10
-        },
-        "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-        "selector": "#webchat"
-      });
-      window.botpress.on("webchat:ready", () => window.botpress.open());
-    });
-
-    /* ----------  FORCER CLIQUE TACTILE MOBILE  ---------- */
-    document.querySelectorAll('input[type="radio"], .btn').forEach(el => {
-      el.addEventListener('touchstart', () => el.click());
-    });
+      chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+      window.botpress.open();
+    };
   </script>
 </body>
-</html>      
+</html>
