@@ -3,53 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Botpress Webchat -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <style>
-    * {
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-    }
     body{font-family:Arial, sans-serif;margin:1rem;background:#f9f9f9;line-height:1.6;padding-bottom:120px}
     h1{color:#2e8b57;font-size:1.5rem}
     section{margin-bottom:2rem}
-    .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px;position:relative;z-index:10}
+    .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px}
     .btn{background:#2e8b57;color:#fff;padding:1.2rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:8px;font-size:1.1rem;width:100%;font-weight:bold}
     .btn:active{background:#1a5c34}
     
-    /* OPTIONS - CRITIQUES POUR MOBILE */
+    /* OPTIONS AVEC RADIO BUTTONS */
     .quiz ul{list-style:none;padding:0;margin:1rem 0}
-    .quiz li{
-      cursor:pointer;
-      padding:1.2rem;
-      border-radius:8px;
-      margin:0.8rem 0;
-      border:3px solid #ddd;
-      background:#fff;
-      user-select:none;
-      min-height:60px;
+    .quiz li{margin:0.8rem 0}
+    
+    .quiz label{
       display:flex;
       align-items:center;
-      font-size:1rem;
-      position:relative;
-      z-index:100;
+      padding:1rem;
+      border-radius:8px;
+      border:2px solid #ddd;
+      background:#fff;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      min-height:55px;
     }
-    .quiz li.selected{
+    
+    .quiz label:hover{background:#f0f0f0}
+    
+    .quiz input[type="radio"]{
+      width:24px;
+      height:24px;
+      margin-right:12px;
+      cursor:pointer;
+      flex-shrink:0;
+      accent-color:#2e8b57;
+    }
+    
+    .quiz input[type="radio"]:checked + span{
+      font-weight:bold;
+    }
+    
+    .quiz label:has(input:checked){
       background:#d4f1d4;
       border-color:#2e8b57;
-      font-weight:bold;
       box-shadow:0 2px 8px rgba(46,139,87,0.3);
     }
     
-    /* Chat widget - DERRIÈRE le quiz */
+    /* Chat widget */
     #webchat{
       position:fixed;
       bottom:20px;
       right:20px;
       width:min(380px, calc(100vw - 40px));
       height:min(500px, calc(100vh - 100px));
-      z-index:1;
+      z-index:1000;
       border-radius:8px;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
     }
@@ -59,14 +68,13 @@
       body{margin:0.5rem;padding-bottom:150px}
       h1{font-size:1.3rem}
       .quiz{padding:1rem}
-      .quiz li{padding:1rem;font-size:1rem;min-height:55px}
+      .quiz label{padding:0.9rem;font-size:0.95rem}
+      .quiz input[type="radio"]{width:22px;height:22px}
       #webchat{
         width:calc(100vw - 20px);
         height:calc(100vh - 100px);
         bottom:10px;
         right:10px;
-        left:10px;
-        margin:0 auto;
       }
     }
   </style>
@@ -77,110 +85,97 @@
     <p>Les trous noirs ne sont pas des aspirateurs cosmiques mais des objets avec une gravité extrême. Le théorème de Hawking (1974) prouve que leur surface ne peut jamais diminuer.</p>
     <p><strong>Source officielle :</strong> <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank" rel="noopener noreferrer">Wikipédia – Trou noir</a></p>
   </section>
+  
   <section class="quiz">
     <h3>Quiz de compréhension</h3>
     <p><strong>Question :</strong> Quelle est la caractéristique principale du rayonnement de Hawking ?</p>
-    <ul id="quiz-options">
-      <li data-index="0">Il est thermique et aléatoire</li>
-      <li data-index="1">Il transporte toute l'information</li>
-      <li data-index="2">Il est plus rapide que la lumière</li>
-      <li data-index="3">Il ne contient aucune énergie</li>
-    </ul>
-    <button class="btn" id="validate-btn">Valider</button>
+    <form id="quiz-form">
+      <ul>
+        <li>
+          <label>
+            <input type="radio" name="reponse" value="0" required>
+            <span>Il est thermique et aléatoire</span>
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="reponse" value="1">
+            <span>Il transporte toute l'information</span>
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="reponse" value="2">
+            <span>Il est plus rapide que la lumière</span>
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="reponse" value="3">
+            <span>Il ne contient aucune énergie</span>
+          </label>
+        </li>
+      </ul>
+      <button type="submit" class="btn">Valider</button>
+    </form>
   </section>
+  
   <!-- AstroBot -->
   <div id="webchat"></div>
+  
   <script>
-    /* ----------  QUIZ - VERSION MOBILE OPTIMISÉE  ---------- */
-    let selectedIndex = null;
-    const BONNE_INDEX = 0;
-
-    // Attendre que le DOM soit chargé
-    document.addEventListener('DOMContentLoaded', function() {
-      const items = document.querySelectorAll('#quiz-options li');
-      const btn = document.getElementById('validate-btn');
-
-      // Gestion de la sélection
-      items.forEach((li) => {
-        // Fonction de sélection
-        function selectOption() {
-          // Retirer toutes les sélections
-          items.forEach(i => i.classList.remove('selected'));
-          
-          // Sélectionner celle-ci
-          li.classList.add('selected');
-          selectedIndex = parseInt(li.getAttribute('data-index'));
-          
-          console.log('✓ Option sélectionnée:', selectedIndex);
-        }
-
-        // ÉVÉNEMENTS MULTIPLES pour compatibilité maximale
-        li.addEventListener('touchend', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          selectOption();
-        }, { passive: false });
-
-        li.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          selectOption();
-        });
-
-        li.addEventListener('mousedown', function(e) {
-          e.preventDefault();
-          selectOption();
-        });
-      });
-
-      // Gestion de la validation
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (selectedIndex === null) {
-          alert('❌ Choisis une réponse avant de valider.');
-          return;
-        }
-        
-        if (selectedIndex === BONNE_INDEX) {
-          alert('✅ Bonne réponse !');
-        } else {
-          alert('❌ Mauvaise réponse. La bonne réponse était : "Il est thermique et aléatoire"');
-        }
-      });
+    /* ----------  QUIZ  ---------- */
+    const BONNE_REPONSE = "0"; // La première réponse est bonne
+    
+    document.getElementById('quiz-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Récupérer la réponse sélectionnée
+      const reponseSelectionnee = document.querySelector('input[name="reponse"]:checked');
+      
+      if (!reponseSelectionnee) {
+        alert('❌ Choisis une réponse avant de valider.');
+        return;
+      }
+      
+      const valeur = reponseSelectionnee.value;
+      
+      if (valeur === BONNE_REPONSE) {
+        alert('✅ Bonne réponse !');
+      } else {
+        alert('❌ Mauvaise réponse. La bonne réponse était : "Il est thermique et aléatoire"');
+      }
     });
 
     /* ----------  AstroBot  ---------- */
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        window.botpress.init({
-          "botId": "fb41640b-a827-4e39-8690-4a617035f277",
-          "configuration": {
-            "version": "v2",
-            "website": {},
-            "email": {},
-            "phone": {},
-            "termsOfService": {},
-            "privacyPolicy": {},
-            "color": "#3276EA",
-            "variant": "solid",
-            "headerVariant": "glass",
-            "themeMode": "light",
-            "fontFamily": "inter",
-            "radius": 4,
-            "feedbackEnabled": false,
-            "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-            "soundEnabled": false,
-            "proactiveMessageEnabled": false,
-            "proactiveBubbleMessage": "Hi! 👋 Need help?",
-            "proactiveBubbleTriggerType": "afterDelay",
-            "proactiveBubbleDelayTime": 10
-          },
-          "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-          "selector": "#webchat"
-        });
-        window.botpress.on("webchat:ready", () => window.botpress.open());
-      }, 500);
+    window.addEventListener('DOMContentLoaded', () => {
+      window.botpress.init({
+        "botId": "fb41640b-a827-4e39-8690-4a617035f277",
+        "configuration": {
+          "version": "v2",
+          "website": {},
+          "email": {},
+          "phone": {},
+          "termsOfService": {},
+          "privacyPolicy": {},
+          "color": "#3276EA",
+          "variant": "solid",
+          "headerVariant": "glass",
+          "themeMode": "light",
+          "fontFamily": "inter",
+          "radius": 4,
+          "feedbackEnabled": false,
+          "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+          "soundEnabled": false,
+          "proactiveMessageEnabled": false,
+          "proactiveBubbleMessage": "Hi! 👋 Need help?",
+          "proactiveBubbleTriggerType": "afterDelay",
+          "proactiveBubbleDelayTime": 10
+        },
+        "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+        "selector": "#webchat"
+      });
+      window.botpress.on("webchat:ready", () => window.botpress.open());
     });
   </script>
 </body>
