@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Botpress Webchat -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <style>
     body{font-family:Arial, sans-serif;margin:2rem;background:#f9f9f9;line-height:1.6}
     h1{color:#2e8b57}
     section{margin-bottom:2rem}
     .quiz{border:1px solid #ccc;padding:1rem;background:#fff}
     .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer}
+    /* Chat widget placement */
+    #webchat{position:fixed;bottom:20px;right:20px;width:380px;height:500px;z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
+    #webchat .bpFab{display:none;}
   </style>
 </head>
 <body>
@@ -32,6 +37,18 @@
     </ul>
     <button class="btn">Valider</button>
   </section>
+
+  <!-- AstroBot Webchat -->
+  <div id="webchat"></div>
+  <script>
+    window.botpress.on("webchat:ready", () => {
+      window.botpress.open();
+    });
+    window.botpress.init({
+      "botId": "fb41640b-a827-4e39-8690-4a617035f277",
+      "configuration": {"version": "v2"}
+    });
+  </script>
 
 </body>
 </html>
