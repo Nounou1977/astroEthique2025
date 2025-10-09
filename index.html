@@ -17,6 +17,7 @@
     .quiz ul{list-style:none;padding:0}
     .quiz li{cursor:pointer;padding:.5rem;border-radius:4px;margin:.25rem 0;border:1px solid #ddd}
     .quiz li:hover{background:#f0f0f0}
+    .quiz li.selected{background:#d4f1d4;border-color:#2e8b57}
     /* Chat widget */
     #webchat{position:fixed;bottom:20px;right:20px;width:min(380px, calc(100vw - 40px));height:min(500px, calc(100vh - 100px));z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
     #webchat .bpFab{display:none;}
@@ -31,7 +32,7 @@
   <section class="quiz">
     <h3>Quiz de compréhension</h3>
     <p><strong>Question :</strong> Quelle est la caractéristique principale du rayonnement de Hawking ?</p>
-    <ul>
+    <ul id="quiz-options">
       <li data-index="0">Il est thermique et aléatoire</li>
       <li data-index="1">Il transporte toute l'information</li>
       <li data-index="2">Il est plus rapide que la lumière</li>
@@ -44,32 +45,39 @@
   <script>
     /* ----------  QUIZ  ---------- */
     const btn   = document.querySelector('.btn');
-    const items = document.querySelectorAll('.quiz li');
-    const BONNE_INDEX = 0; // ✅ La première réponse est bonne
+    const items = document.querySelectorAll('#quiz-options li');
+    const BONNE_INDEX = 0; // ✅ La première réponse (index 0) est bonne
+    
+    let selectedIndex = null;
 
-    items.forEach(li =>
+    items.forEach((li, index) => {
       li.addEventListener('click', () => {
-        // Retirer la sélection précédente
-        items.forEach(i => {
-          i.style.background = '';
-          delete i.dataset.chosen; // ✅ Supprime l'ancien choix
-        });
-        // Marquer la nouvelle sélection
-        li.style.background = '#d4f1d4';
-        li.dataset.chosen = 'true';
-      })
-    );
+        // Retirer la classe selected de tous les items
+        items.forEach(i => i.classList.remove('selected'));
+        
+        // Ajouter la classe selected à l'item cliqué
+        li.classList.add('selected');
+        
+        // Stocker l'index sélectionné
+        selectedIndex = parseInt(li.getAttribute('data-index'));
+        
+        console.log('Index sélectionné:', selectedIndex); // Pour déboguer
+      });
+    });
 
     btn.addEventListener('click', () => {
-      const chosen = document.querySelector('.quiz li[data-chosen]');
-      if (!chosen) {
+      if (selectedIndex === null) {
         alert('❌ Choisis une réponse avant de valider.');
         return;
       }
-      const chosenIndex = Number(chosen.dataset.index);
-      const ok = chosenIndex === BONNE_INDEX;
       
-      alert(ok ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
+      console.log('Vérification:', selectedIndex, '===', BONNE_INDEX); // Pour déboguer
+      
+      if (selectedIndex === BONNE_INDEX) {
+        alert('✅ Bonne réponse !');
+      } else {
+        alert('❌ Mauvaise réponse.');
+      }
     });
 
     /* ----------  AstroBot  ---------- */
@@ -104,5 +112,4 @@
     });
   </script>
 </body>
-</html>
-     
+</html>       
