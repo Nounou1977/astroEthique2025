@@ -14,6 +14,7 @@
     .quiz{border:1px solid #ccc;padding:1rem;background:#fff}
     .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;pointer-events:auto!important;}
     /* Lignes cliquables */
+    .quiz ul{list-style:none;padding:0}
     .quiz li{cursor:pointer;padding:.5rem;border-radius:4px;margin:.25rem 0}
     .quiz li:hover{background:#f0f0f0}
     /* Chat widget */
@@ -34,63 +35,65 @@
     <h3>Quiz de compréhension</h3>
     <p><strong>Question :</strong> Quelle est la caractéristique principale du rayonnement de Hawking ?</p>
     <ul>
-      <li>✓ Il est thermique et aléatoire</li>
-      <li>✗ Il transporte toute l’information</li>
-      <li>✗ Il est plus rapide que la lumière</li>
-      <li>✗ Il ne contient aucune énergie</li>
+      <li>Il est thermique et aléatoire</li>
+      <li>Il transporte toute l’information</li>
+      <li>Il est plus rapide que la lumière</li>
+      <li>Il ne contient aucune énergie</li>
     </ul>
     <button class="btn">Valider</button>
   </section>
 
   <!-- AstroBot -->
   <div id="webchat"></div>
-  <script>
-    window.botpress.on("webchat:ready", () => {
-      window.botpress.open();
-    });
-    window.botpress.init({
-      "botId": "fb41640b-a827-4e39-8690-4a617035f277",
-      "configuration": {
-        "version": "v2",
-        "website": {},
-        "email": {},
-        "phone": {},
-        "termsOfService": {},
-        "privacyPolicy": {},
-        "color": "#3276EA",
-        "variant": "solid",
-        "headerVariant": "glass",
-        "themeMode": "light",
-        "fontFamily": "inter",
-        "radius": 4,
-        "feedbackEnabled": false,
-        "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-        "soundEnabled": false,
-        "proactiveMessageEnabled": false,
-        "proactiveBubbleMessage": "Hi! 👋 Need help?",
-        "proactiveBubbleTriggerType": "afterDelay",
-        "proactiveBubbleDelayTime": 10
-      },
-      "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-      "selector": "#webchat"
-    });
-  </script>
 
-  <!-- Quiz interactif -->
+  <!-- Scripts mis en fin de body pour éviter tout chargement tardif -->
   <script>
+    /* Quiz interactif */
     const btn   = document.querySelector('.btn');
     const items = document.querySelectorAll('.quiz li');
 
     items.forEach(li => li.addEventListener('click', () => {
-      items.forEach(i => i.style.background = '');           // reset
-      li.style.background = '#d4f1d4';                       // highlight
+      items.forEach(i => i.style.background = '');
+      li.style.background = '#d4f1d4';
       li.dataset.chosen = '1';
     }));
 
     btn.addEventListener('click', () => {
       const chosen = document.querySelector('.quiz li[data-chosen]');
-      const ok     = chosen && chosen.textContent.includes('✓');
+      if (!chosen) { alert('❌ Choisis une réponse avant de valider.'); return; }
+      const ok = chosen.textContent === 'Il est thermique et aléatoire';
       alert(ok ? '✅ Bonne réponse !' : '❌ Essaye encore.');
+    });
+
+    /* AstroBot : attend que le DOM soit prêt */
+    window.addEventListener('DOMContentLoaded', () => {
+      window.botpress.init({
+        "botId": "fb41640b-a827-4e39-8690-4a617035f277",
+        "configuration": {
+          "version": "v2",
+          "website": {},
+          "email": {},
+          "phone": {},
+          "termsOfService": {},
+          "privacyPolicy": {},
+          "color": "#3276EA",
+          "variant": "solid",
+          "headerVariant": "glass",
+          "themeMode": "light",
+          "fontFamily": "inter",
+          "radius": 4,
+          "feedbackEnabled": false,
+          "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+          "soundEnabled": false,
+          "proactiveMessageEnabled": false,
+          "proactiveBubbleMessage": "Hi! 👋 Need help?",
+          "proactiveBubbleTriggerType": "afterDelay",
+          "proactiveBubbleDelayTime": 10
+        },
+        "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+        "selector": "#webchat"
+      });
+      window.botpress.on("webchat:ready", () => window.botpress.open());
     });
   </script>
 
