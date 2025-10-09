@@ -73,5 +73,23 @@
     });
   </script>
 
+  <!-- Quiz interactif -->
+  <script>
+    const btn   = document.querySelector('.btn');
+    const items = document.querySelectorAll('.quiz li');
+
+    items.forEach(li => li.addEventListener('click', () => {
+      items.forEach(i => i.style.background = ''); // reset
+      li.style.background = '#d4f1d4';            // highlight
+      li.dataset.chosen = '1';
+    }));
+
+    btn.addEventListener('click', () => {
+      const chosen = document.querySelector('.quiz li[data-chosen]');
+      const ok     = chosen && chosen.textContent.includes('✓');
+      alert(ok ? '✅ Bonne réponse !' : '❌ Essaye encore.');
+    });
+  </script>
+
 </body>
 </html>
