@@ -12,7 +12,10 @@
     h1{color:#2e8b57}
     section{margin-bottom:2rem}
     .quiz{border:1px solid #ccc;padding:1rem;background:#fff}
-    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer}
+    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;pointer-events:auto!important;}
+    /* Lignes cliquables */
+    .quiz li{cursor:pointer;padding:.5rem;border-radius:4px;margin:.25rem 0}
+    .quiz li:hover{background:#f0f0f0}
     /* Chat widget */
     #webchat{position:fixed;bottom:20px;right:20px;width:380px;height:500px;z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
     #webchat .bpFab{display:none;}
@@ -79,8 +82,8 @@
     const items = document.querySelectorAll('.quiz li');
 
     items.forEach(li => li.addEventListener('click', () => {
-      items.forEach(i => i.style.background = ''); // reset
-      li.style.background = '#d4f1d4';            // highlight
+      items.forEach(i => i.style.background = '');           // reset
+      li.style.background = '#d4f1d4';                       // highlight
       li.dataset.chosen = '1';
     }));
 
