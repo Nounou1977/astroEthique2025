@@ -48,15 +48,23 @@
 
   <!-- Scripts mis en fin de body pour éviter tout chargement tardif -->
   <script>
-    /* Quiz interactif */
-    const btn   = document.querySelector('.btn');
-    const items = document.querySelectorAll('.quiz li');
+   /* Quiz interactif */
+const btn   = document.querySelector('.btn');
+const items = document.querySelectorAll('.quiz li');
+const BONNE_INDEX = 0; // 1ᵉ ligne = bonne réponse
 
-    items.forEach(li => li.addEventListener('click', () => {
-      items.forEach(i => i.style.background = '');
-      li.style.background = '#d4f1d4';
-      li.dataset.chosen = '1';
-    }));
+items.forEach((li, idx) => li.addEventListener('click', () => {
+  items.forEach(i => i.style.background = '');
+  li.style.background = '#d4f1d4';
+  li.dataset.index = idx; // on stocke l’index
+}));
+
+btn.addEventListener('click', () => {
+  const chosen = document.querySelector('.quiz li[data-index]');
+  if (!chosen) { alert('❌ Choisis une réponse avant de valider.'); return; }
+  const ok = Number(chosen.dataset.index) === BONNE_INDEX;
+  alert(ok ? '✅ Bonne réponse !' : '❌ Essaye encore.');
+});
 
     btn.addEventListener('click', () => {
       const chosen = document.querySelector('.quiz li[data-chosen]');
