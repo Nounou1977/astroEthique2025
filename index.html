@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <!-- Botpress Webchat -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <style>
@@ -12,7 +13,7 @@
     section{margin-bottom:2rem}
     .quiz{border:1px solid #ccc;padding:1rem;background:#fff}
     .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer}
-    /* Chat widget placement */
+    /* Chat widget */
     #webchat{position:fixed;bottom:20px;right:20px;width:380px;height:500px;z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
     #webchat .bpFab{display:none;}
   </style>
@@ -38,7 +39,7 @@
     <button class="btn">Valider</button>
   </section>
 
-  <!-- AstroBot Webchat -->
+  <!-- AstroBot -->
   <div id="webchat"></div>
   <script>
     window.botpress.on("webchat:ready", () => {
@@ -46,7 +47,29 @@
     });
     window.botpress.init({
       "botId": "fb41640b-a827-4e39-8690-4a617035f277",
-      "configuration": {"version": "v2"}
+      "configuration": {
+        "version": "v2",
+        "website": {},
+        "email": {},
+        "phone": {},
+        "termsOfService": {},
+        "privacyPolicy": {},
+        "color": "#3276EA",
+        "variant": "solid",
+        "headerVariant": "glass",
+        "themeMode": "light",
+        "fontFamily": "inter",
+        "radius": 4,
+        "feedbackEnabled": false,
+        "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+        "soundEnabled": false,
+        "proactiveMessageEnabled": false,
+        "proactiveBubbleMessage": "Hi! 👋 Need help?",
+        "proactiveBubbleTriggerType": "afterDelay",
+        "proactiveBubbleDelayTime": 10
+      },
+      "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+      "selector": "#webchat"
     });
   </script>
 
