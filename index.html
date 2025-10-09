@@ -4,58 +4,57 @@
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- Botpress Webchat -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-
   <style>
     body{font-family:Arial, sans-serif;margin:2rem;background:#f9f9f9;line-height:1.6}
     h1{color:#2e8b57}
     section{margin-bottom:2rem}
-    .quiz{border:1px solid #ccc;padding:1rem;background:#fff}
-    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;pointer-events:auto!important;}
+    .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px}
+    .btn{background:#2e8b57;color:#fff;padding:1rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:4px;font-size:1rem}
+    .btn:hover{background:#246d43}
     /* Lignes cliquables */
     .quiz ul{list-style:none;padding:0}
-    .quiz li{cursor:pointer;padding:.5rem;border-radius:4px;margin:.25rem 0}
+    .quiz li{cursor:pointer;padding:.5rem;border-radius:4px;margin:.25rem 0;border:1px solid #ddd}
     .quiz li:hover{background:#f0f0f0}
     /* Chat widget */
-    #webchat{position:fixed;bottom:20px;right:20px;width:380px;height:500px;z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
+    #webchat{position:fixed;bottom:20px;right:20px;width:min(380px, calc(100vw - 40px));height:min(500px, calc(100vh - 100px));z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
     #webchat .bpFab{display:none;}
   </style>
 </head>
 <body>
-
   <h1>5 Faits Étonnants sur les Trous Noirs</h1>
-
   <section>
     <p>Les trous noirs ne sont pas des aspirateurs cosmiques mais des objets avec une gravité extrême. Le théorème de Hawking (1974) prouve que leur surface ne peut jamais diminuer.</p>
-    <p><strong>Source officielle :</strong> <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank" rel="noopener">Wikipédia – Trou noir</a></p>
+    <p><strong>Source officielle :</strong> <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank" rel="noopener noreferrer">Wikipédia – Trou noir</a></p>
   </section>
-
   <section class="quiz">
     <h3>Quiz de compréhension</h3>
     <p><strong>Question :</strong> Quelle est la caractéristique principale du rayonnement de Hawking ?</p>
     <ul>
       <li data-index="0">Il est thermique et aléatoire</li>
-      <li data-index="1">Il transporte toute l’information</li>
+      <li data-index="1">Il transporte toute l'information</li>
       <li data-index="2">Il est plus rapide que la lumière</li>
       <li data-index="3">Il ne contient aucune énergie</li>
     </ul>
     <button class="btn">Valider</button>
   </section>
-
   <!-- AstroBot -->
   <div id="webchat"></div>
-
   <script>
     /* ----------  QUIZ  ---------- */
     const btn   = document.querySelector('.btn');
     const items = document.querySelectorAll('.quiz li');
-    const BONNE_INDEX = 0; // 👈 seule la 1ᵉ est bonne
+    const BONNE_INDEX = 0; // ✅ La première réponse est bonne
 
     items.forEach(li =>
       li.addEventListener('click', () => {
-        items.forEach(i => i.style.background = '');
+        // Retirer la sélection précédente
+        items.forEach(i => {
+          i.style.background = '';
+          delete i.dataset.chosen; // ✅ Supprime l'ancien choix
+        });
+        // Marquer la nouvelle sélection
         li.style.background = '#d4f1d4';
         li.dataset.chosen = 'true';
       })
@@ -67,7 +66,9 @@
         alert('❌ Choisis une réponse avant de valider.');
         return;
       }
-      const ok = Number(chosen.dataset.index) === BONNE_INDEX;
+      const chosenIndex = Number(chosen.dataset.index);
+      const ok = chosenIndex === BONNE_INDEX;
+      
       alert(ok ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
 
@@ -102,8 +103,6 @@
       window.botpress.on("webchat:ready", () => window.botpress.open());
     });
   </script>
-
 </body>
 </html>
-    
-   
+     
