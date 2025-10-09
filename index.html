@@ -36,10 +36,10 @@
     <h3>Quiz de compréhension</h3>
     <p><strong>Question :</strong> Quelle est la caractéristique principale du rayonnement de Hawking ?</p>
     <ul>
-      <li>Il est thermique et aléatoire</li>
-      <li>Il transporte toute l’information</li>
-      <li>Il est plus rapide que la lumière</li>
-      <li>Il ne contient aucune énergie</li>
+      <li data-index="0">Il est thermique et aléatoire</li>
+      <li data-index="1">Il transporte toute l’information</li>
+      <li data-index="2">Il est plus rapide que la lumière</li>
+      <li data-index="3">Il ne contient aucune énergie</li>
     </ul>
     <button class="btn">Valider</button>
   </section>
@@ -51,24 +51,24 @@
     /* ----------  QUIZ  ---------- */
     const btn   = document.querySelector('.btn');
     const items = document.querySelectorAll('.quiz li');
-    const BONNE_INDEX = 0;   // 1ᵉ ligne = bonne réponse
+    const BONNE_INDEX = 0;   // seule la 1ᵉ réponse est bonne
 
-    items.forEach((li, idx) =>
+    items.forEach(li =>
       li.addEventListener('click', () => {
         items.forEach(i => i.style.background = '');
         li.style.background = '#d4f1d4';
-        li.dataset.index = idx;          // on mémorise le choix
+        li.dataset.chosen = 'true';
       })
     );
 
     btn.addEventListener('click', () => {
-      const chosen = document.querySelector('.quiz li[data-index]');
+      const chosen = document.querySelector('.quiz li[data-chosen]');
       if (!chosen) {
         alert('❌ Choisis une réponse avant de valider.');
         return;
       }
       const ok = Number(chosen.dataset.index) === BONNE_INDEX;
-      alert(ok ? '✅ Bonne réponse !' : '❌ Essaye encore.');
+      alert(ok ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
 
     /* ----------  AstroBot  ---------- */
