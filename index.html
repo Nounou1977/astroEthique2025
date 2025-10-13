@@ -141,61 +141,66 @@
       alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
   </script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("chatToggle");
+  const chat = document.getElementById("webchat");
+  let chatReady = false;
 
-  <!-- ✅ Botpress Webchat – version corrigée et asynchrone -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggle = document.getElementById("chatToggle");
-      const chat = document.getElementById("webchat");
-      let chatReady = false;
+  function initBotpress() {
+    if (!window.botpress || !window.botpress.init) {
+      console.log("⏳ Attente du script Botpress...");
+      return setTimeout(initBotpress, 400);
+    }
 
-      function initBotpress() {
-        if (!window.botpress || !window.botpress.init) {
-          console.log("⏳ Attente du script Botpress...");
-          return setTimeout(initBotpress, 400);
-        }
-
-        console.log("🚀 Initialisation du chatbot...");
-        window.botpress.init({
-          botId: "fb41640b-a827-4e39-8690-4a617035f277",
-          clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-          selector: "#webchat",
-          configuration: {
-            themeMode: "light",
-            color: "#3276EA",
-            variant: "solid",
-            fontFamily: "inter",
-            radius: 4,
-            showCloseButton: true,
-            headerVariant: "glass",
-            feedbackEnabled: false,
-            soundEnabled: false,
-            proactiveMessageEnabled: false
-          }
-        });
-
-        window.botpress.on("webchat:ready", () => {
-          console.log("✅ Chat prêt !");
-          chatReady = true;
-          toggle.classList.add("ready");
-        });
-      }
-
-      initBotpress();
-
-      toggle.addEventListener("click", () => {
-        if (!chatReady) {
-          console.warn("⚠️ Chat pas encore prêt, attente...");
-          return;
-        }
-        chat.style.display = "block";
-        setTimeout(() => {
-          console.log("💬 Ouverture du chat...");
-          window.botpress.open();
-        }, 500);
-      });
+    console.log("🚀 Initialisation du chatbot...");
+    window.botpress.init({
+      botId: "fb41640b-a827-4e39-8690-4a617035f277",
+      clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+      selector: "#webchat",
+      configuration: {
+        themeMode: "light",
+        color: "#3276EA",
+        variant: "solid",
+        fontFamily: "inter",
+        radius: 4,
+        showCloseButton: true
+      },
     });
-  </script>
+
+    window.botpress.on("webchat:ready", () => {
+      console.log("✅ Chat prêt !");
+      chatReady = true;
+      toggle.classList.add("ready");
+    });
+  }
+
+  initBotpress();
+
+  toggle.addEventListener("click", () => {
+    if (!chatReady) {
+      console.warn("⚠️ Chat pas encore prêt, attente...");
+      return;
+    }
+    chat.style.display = "block";
+    setTimeout(() => {
+      console.log("💬 Ouverture du chat...");
+      window.botpress.open();
+
+      // 🩹 Donne le focus à l’iframe du chat pour débloquer le champ de message
+      setTimeout(() => {
+        const iframe = document.querySelector("iframe[src*='botpress']");
+        if (iframe) iframe.focus();
+      }, 1000);
+    }, 500);
+  });
+
+  // 🕒 Ouverture automatique du chat après 3 secondes
+  setTimeout(() => {
+    console.log("🕒 Ouverture automatique du chat après 3 s");
+    toggle.click();
+  }, 3000);
+});
+</script>
 
 </body>
 </html>
