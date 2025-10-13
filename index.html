@@ -5,7 +5,7 @@
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ Script Botpress officiel -->
+  <!-- ✅ Script Botpress officiel v3.3 -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
 
   <style>
@@ -124,59 +124,50 @@
     });
   </script>
 
-  <!-- ✅ Script du chatbot -->
+  <!-- ✅ Script du chatbot corrigé pour v3.3 -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const toggle = document.getElementById("chatToggle");
-      const chat = document.getElementById("webchat");
       let chatReady = false;
 
       function initBotpress() {
-        if (!window.botpress || !window.botpress.init) {
-          console.log("⏳ Attente du script Botpress...");
+        if (!window.botpressWebChat || !window.botpressWebChat.init) {
+          console.log("⏳ Attente du script Botpress v3...");
           return setTimeout(initBotpress, 400);
         }
 
-        console.log("🚀 Initialisation du chatbot...");
-        window.botpress.init({
+        console.log("🚀 Initialisation du chatbot (v3.3)...");
+        window.botpressWebChat.init({
+          hostUrl: "https://cdn.botpress.cloud/webchat/v3",
           botId: "fb41640b-a827-4e39-8690-4a617035f277",
           clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-          selector: "#webchat",
-          configuration: {
-            themeMode: "light",
-            color: "#3276EA",
-            variant: "solid",
-            fontFamily: "inter",
-            radius: 4,
-            showCloseButton: true
-          },
+          container: "#webchat",
+          theme: "light",
+          showCloseButton: true,
+          hideWidget: true
         });
 
-        window.botpress.on("webchat:ready", () => {
-          console.log("✅ Chat prêt !");
-          chatReady = true;
-          toggle.classList.add("ready");
+        window.botpressWebChat.onEvent(function (event) {
+          if (event.type === "LIFECYCLE.LOADED") {
+            console.log("✅ Chat prêt !");
+            chatReady = true;
+            toggle.classList.add("ready");
+          }
         });
       }
 
       initBotpress();
 
       toggle.addEventListener("click", () => {
-        if (!chatReady) {
-          console.warn("⚠️ Chat pas encore prêt, attente...");
-          return;
-        }
-        chat.style.display = "block";
-        setTimeout(() => {
-          console.log("💬 Ouverture du chat...");
-          window.botpress.open();
+        if (!chatReady) return console.warn("⚠️ Chat pas encore prêt...");
+        console.log("💬 Ouverture du chat...");
+        window.botpressWebChat.sendEvent({ type: "show" });
 
-          // 🩹 Donne le focus à l’iframe du chat pour débloquer le champ de message
-          setTimeout(() => {
-            const iframe = document.querySelector("iframe[src*='botpress']");
-            if (iframe) iframe.focus();
-          }, 1000);
-        }, 500);
+        // 🩹 Fix focus sur champ de saisie
+        setTimeout(() => {
+          const iframe = document.querySelector("iframe[src*='botpress']");
+          if (iframe) iframe.contentWindow.focus();
+        }, 1000);
       });
 
       // 🕒 Ouverture automatique du chat après 3 secondes
