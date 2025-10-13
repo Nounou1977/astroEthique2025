@@ -42,17 +42,9 @@
       width: 100%;
       font-weight: bold;
     }
-    .btn:active {
-      background: #1a5c34;
-    }
-    .quiz ul {
-      list-style: none;
-      padding: 0;
-      margin: 1rem 0;
-    }
-    .quiz li {
-      margin: 0.8rem 0;
-    }
+    .btn:active { background: #1a5c34; }
+    .quiz ul { list-style: none; padding: 0; margin: 1rem 0; }
+    .quiz li { margin: 0.8rem 0; }
     .quiz label {
       display: flex;
       align-items: center;
@@ -64,20 +56,12 @@
       transition: all 0.2s ease;
       min-height: 55px;
     }
-    .quiz label:hover {
-      background: #f0f0f0;
-    }
+    .quiz label:hover { background: #f0f0f0; }
     .quiz input[type="radio"] {
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-      cursor: pointer;
-      flex-shrink: 0;
-      accent-color: #2e8b57;
+      width: 24px; height: 24px; margin-right: 12px;
+      cursor: pointer; flex-shrink: 0; accent-color: #2e8b57;
     }
-    .quiz input[type="radio"]:checked + span {
-      font-weight: bold;
-    }
+    .quiz input[type="radio"]:checked + span { font-weight: bold; }
     .quiz label:has(input:checked) {
       background: #d4f1d4;
       border-color: #2e8b57;
@@ -85,28 +69,19 @@
     }
     #chatToggle {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: #3276EA;
-      color: #fff;
-      border: none;
-      font-size: 24px;
+      bottom: 20px; right: 20px;
+      width: 56px; height: 56px;
+      border-radius: 50%; background: #3276EA;
+      color: #fff; border: none; font-size: 24px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
-      z-index: 1001;
-      cursor: pointer;
+      z-index: 1001; cursor: pointer;
       visibility: hidden;
     }
-    #chatToggle.ready {
-      visibility: visible;
-    }
+    #chatToggle.ready { visibility: visible; }
     #webchat {
       display: none;
       position: fixed;
-      bottom: 80px;
-      right: 20px;
+      bottom: 80px; right: 20px;
       width: min(380px, calc(100vw - 40px));
       height: min(500px, calc(100vh - 100px));
       z-index: 1000;
@@ -114,34 +89,17 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
     }
     @media (max-width: 600px) {
-      body {
-        margin: 0.5rem;
-        padding-bottom: 150px;
-      }
-      h1 {
-        font-size: 1.3rem;
-      }
-      .quiz {
-        padding: 1rem;
-      }
-      .quiz label {
-        padding: 0.9rem;
-        font-size: 0.95rem;
-      }
-      .quiz input[type="radio"] {
-        width: 22px;
-        height: 22px;
-      }
+      body { margin: 0.5rem; padding-bottom: 150px; }
+      h1 { font-size: 1.3rem; }
+      .quiz { padding: 1rem; }
+      .quiz label { padding: 0.9rem; font-size: 0.95rem; }
+      .quiz input[type="radio"] { width: 22px; height: 22px; }
       #webchat {
         width: calc(100vw - 20px);
         height: calc(100vh - 100px);
-        bottom: 70px;
-        right: 10px;
+        bottom: 70px; right: 10px;
       }
-      #chatToggle {
-        bottom: 10px;
-        right: 10px;
-      }
+      #chatToggle { bottom: 10px; right: 10px; }
     }
   </style>
 </head>
@@ -150,7 +108,9 @@
   <h1>5 Faits Étonnants sur les Trous Noirs</h1>
   <section>
     <p>Les trous noirs ne sont pas des aspirateurs cosmiques mais des objets avec une gravité extrême. Le théorème de Hawking (1974) prouve que leur surface ne peut jamais diminuer.</p>
-    <p><strong>Source officielle :</strong> <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank" rel="noopener noreferrer">Wikipédia – Trou noir</a></p>
+    <p><strong>Source officielle :</strong> 
+      <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank" rel="noopener noreferrer">Wikipédia – Trou noir</a>
+    </p>
   </section>
 
   <section class="quiz">
@@ -170,8 +130,8 @@
   <button id="chatToggle" aria-label="Ouvrir le chat">💬</button>
   <div id="webchat"></div>
 
+  <!-- --- Quiz simple --- -->
   <script>
-    // --- Quiz simple ---
     const BONNE_REPONSE = "0";
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -179,59 +139,59 @@
       if (!choix) { alert('❌ Choisis une réponse avant de valider.'); return; }
       alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
-<!-- ✅ Botpress Webchat – Version stable avec initialisation propre -->
-<script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("chatToggle");
-  const chat = document.getElementById("webchat");
-  let chatReady = false;
+  </script>
 
-  function initBotpress() {
-    if (!window.botpress || !window.botpress.init) {
-      console.log("⏳ Attente du script Botpress...");
-      return setTimeout(initBotpress, 400);
-    }
+  <!-- ✅ Botpress Webchat – version stable -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("chatToggle");
+      const chat = document.getElementById("webchat");
+      let chatReady = false;
 
-    console.log("🚀 Initialisation du chatbot...");
-    window.botpress.init({
-      botId: "fb41640b-a827-4e39-8690-4a617035f277",
-      clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-      selector: "#webchat",
-      configuration: {
-        themeMode: "light",
-        color: "#3276EA",
-        variant: "solid",
-        fontFamily: "inter",
-        radius: 4,
-        showCloseButton: true
-      },
+      function initBotpress() {
+        if (!window.botpress || !window.botpress.init) {
+          console.log("⏳ Attente du script Botpress...");
+          return setTimeout(initBotpress, 400);
+        }
+
+        console.log("🚀 Initialisation du chatbot...");
+        window.botpress.init({
+          botId: "fb41640b-a827-4e39-8690-4a617035f277",
+          clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+          selector: "#webchat",
+          configuration: {
+            themeMode: "light",
+            color: "#3276EA",
+            variant: "solid",
+            fontFamily: "inter",
+            radius: 4,
+            showCloseButton: true
+          },
+        });
+
+        window.botpress.on("webchat:ready", () => {
+          console.log("✅ Chat prêt !");
+          chatReady = true;
+          toggle.classList.add("ready");
+        });
+      }
+
+      initBotpress();
+
+      toggle.addEventListener("click", () => {
+        if (!chatReady) {
+          console.warn("⚠️ Chat pas encore prêt, attente...");
+          return;
+        }
+        chat.style.display = "block";
+        setTimeout(() => {
+          console.log("💬 Ouverture du chat...");
+          window.botpress.open();
+        }, 500);
+      });
     });
+  </script>
 
-    window.botpress.on("webchat:ready", () => {
-      console.log("✅ Chat prêt !");
-      chatReady = true;
-      toggle.classList.add("ready");
-    });
-  }
-
-  initBotpress();
-
-  toggle.addEventListener("click", () => {
-    if (!chatReady) {
-      console.warn("⚠️ Chat pas encore prêt, attente...");
-      return;
-    }
-    chat.style.display = "block";
-    setTimeout(() => {
-      console.log("💬 Ouverture du chat...");
-      window.botpress.open();
-    }, 500);
-  });
-});
-</script>
- 
 </body>
-  <!-- rebuild -->
-
+<!-- rebuild -->
 </html>
