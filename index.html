@@ -34,7 +34,7 @@
     <p>Les trous noirs ne sont pas des aspirateurs cosmiques mais des objets avec une gravité extrême. Le théorème de Hawking (1974) prouve que leur surface ne peut jamais diminuer.</p>
     <p><strong>Source officielle :</strong> <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank" rel="noopener noreferrer">Wikipédia – Trou noir</a></p>
   </section>
-  
+
   <section class="quiz">
     <h3>Quiz de compréhension</h3>
     <p><strong>Question :</strong> Quelle est la caractéristique principale du rayonnement de Hawking ?</p>
@@ -48,7 +48,7 @@
       <button type="submit" class="btn">Valider</button>
     </form>
   </section>
-  
+
   <button id="chatToggle" aria-label="Ouvrir le chat">💬</button>
   <div id="webchat"></div>
 
@@ -92,5 +92,16 @@
       setTimeout(() => window.botpress.open(), 150);
     });
   </script>
+
+  <!-- 4. Script pour forcer un chatId au premier chargement -->
+  <script>
+    /* donne un chatId dès le premier chargement */
+    (function(){
+      if (!location.search.includes('id=')) {
+        const id = self.crypto.randomUUID();
+        location.replace('?id='+id);
+      }
+    })();
+  </script>
 </body>
-</html> 
+</html>
