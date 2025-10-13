@@ -5,7 +5,7 @@
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ Script Botpress -->
+  <!-- ✅ Script Botpress officiel -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
 
   <style>
@@ -171,7 +171,7 @@
           console.log("💬 Ouverture du chat...");
           window.botpress.open();
 
-          // 🩹 Donne le focus à l’iframe du chat
+          // 🩹 Donne le focus à l’iframe du chat pour débloquer le champ de message
           setTimeout(() => {
             const iframe = document.querySelector("iframe[src*='botpress']");
             if (iframe) iframe.focus();
