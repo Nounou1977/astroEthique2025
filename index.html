@@ -5,8 +5,8 @@
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Botpress Webchat : version forcée pour vider le cache -->
-  <script defer src="https://cdn.botpress.cloud/webchat/v3.3/inject.js?v=3"></script>
+  <!-- ✅ Script Botpress officiel (chargé AVANT tout le reste) -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
 
   <style>
     body {
@@ -127,10 +127,11 @@
     </form>
   </section>
 
+  <!-- 💬 Chatbot -->
   <button id="chatToggle" aria-label="Ouvrir le chat">💬</button>
   <div id="webchat"></div>
 
-  <!-- --- Quiz simple --- -->
+  <!-- Quiz simple -->
   <script>
     const BONNE_REPONSE = "0";
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
@@ -141,7 +142,7 @@
     });
   </script>
 
-  <!-- ✅ Botpress Webchat – version stable -->
+  <!-- ✅ Botpress Webchat – version corrigée et asynchrone -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const toggle = document.getElementById("chatToggle");
@@ -165,8 +166,12 @@
             variant: "solid",
             fontFamily: "inter",
             radius: 4,
-            showCloseButton: true
-          },
+            showCloseButton: true,
+            headerVariant: "glass",
+            feedbackEnabled: false,
+            soundEnabled: false,
+            proactiveMessageEnabled: false
+          }
         });
 
         window.botpress.on("webchat:ready", () => {
@@ -193,5 +198,4 @@
   </script>
 
 </body>
-<!-- rebuild -->
 </html>
