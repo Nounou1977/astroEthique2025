@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -62,8 +62,11 @@
     });
 
     let chatLoaded = false;
+    let chatInitialized = false;
+    
     document.getElementById('chatToggle').onclick = () => {
       const chat = document.getElementById('webchat');
+      
       if (!chatLoaded) {
         window.botpress.init({
           "botId": "fb41640b-a827-4e39-8690-4a617035f277",
@@ -77,15 +80,24 @@
           "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d", "selector": "#webchat"
         });
         chatLoaded = true;
+        
+        // Attendre que le webchat soit prêt et démarrer la conversation automatiquement
+        window.botpress.on('webchat:ready', () => {
+          if (!chatInitialized) {
+            // Force le démarrage de la conversation
+            setTimeout(() => {
+              window.botpress.sendEvent({ type: 'proactive-trigger' });
+            }, 500);
+            chatInitialized = true;
+          }
+        });
       }
+      
       chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
-      window.botpress.open();
+      if (chat.style.display === 'block') {
+        window.botpress.open();
+      }
     };
-
-    // Force refresh : reset conversation + cache
-    window.botpress.on('webchat:ready', () => {
-      window.botpress.sendEvent({ type: 'reset' });
-    });
   </script>
 </body>
 </html>
