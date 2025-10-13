@@ -5,7 +5,7 @@
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ Script Botpress officiel (chargé AVANT tout le reste) -->
+  <!-- ✅ Script Botpress -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
 
   <style>
@@ -16,13 +16,8 @@
       line-height: 1.6;
       padding-bottom: 120px;
     }
-    h1 {
-      color: #2e8b57;
-      font-size: 1.5rem;
-    }
-    section {
-      margin-bottom: 2rem;
-    }
+    h1 { color: #2e8b57; font-size: 1.5rem; }
+    section { margin-bottom: 2rem; }
     .quiz {
       border: 1px solid #ccc;
       padding: 1rem;
@@ -88,19 +83,6 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
     }
-    @media (max-width: 600px) {
-      body { margin: 0.5rem; padding-bottom: 150px; }
-      h1 { font-size: 1.3rem; }
-      .quiz { padding: 1rem; }
-      .quiz label { padding: 0.9rem; font-size: 0.95rem; }
-      .quiz input[type="radio"] { width: 22px; height: 22px; }
-      #webchat {
-        width: calc(100vw - 20px);
-        height: calc(100vh - 100px);
-        bottom: 70px; right: 10px;
-      }
-      #chatToggle { bottom: 10px; right: 10px; }
-    }
   </style>
 </head>
 <body>
@@ -141,66 +123,69 @@
       alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
   </script>
-document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.getElementById("chatToggle");
-  const chat = document.getElementById("webchat");
-  let chatReady = false;
 
-  function initBotpress() {
-    if (!window.botpress || !window.botpress.init) {
-      console.log("⏳ Attente du script Botpress...");
-      return setTimeout(initBotpress, 400);
-    }
+  <!-- ✅ Script du chatbot -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("chatToggle");
+      const chat = document.getElementById("webchat");
+      let chatReady = false;
 
-    console.log("🚀 Initialisation du chatbot...");
-    window.botpress.init({
-      botId: "fb41640b-a827-4e39-8690-4a617035f277",
-      clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-      selector: "#webchat",
-      configuration: {
-        themeMode: "light",
-        color: "#3276EA",
-        variant: "solid",
-        fontFamily: "inter",
-        radius: 4,
-        showCloseButton: true
-      },
-    });
+      function initBotpress() {
+        if (!window.botpress || !window.botpress.init) {
+          console.log("⏳ Attente du script Botpress...");
+          return setTimeout(initBotpress, 400);
+        }
 
-    window.botpress.on("webchat:ready", () => {
-      console.log("✅ Chat prêt !");
-      chatReady = true;
-      toggle.classList.add("ready");
-    });
-  }
+        console.log("🚀 Initialisation du chatbot...");
+        window.botpress.init({
+          botId: "fb41640b-a827-4e39-8690-4a617035f277",
+          clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+          selector: "#webchat",
+          configuration: {
+            themeMode: "light",
+            color: "#3276EA",
+            variant: "solid",
+            fontFamily: "inter",
+            radius: 4,
+            showCloseButton: true
+          },
+        });
 
-  initBotpress();
+        window.botpress.on("webchat:ready", () => {
+          console.log("✅ Chat prêt !");
+          chatReady = true;
+          toggle.classList.add("ready");
+        });
+      }
 
-  toggle.addEventListener("click", () => {
-    if (!chatReady) {
-      console.warn("⚠️ Chat pas encore prêt, attente...");
-      return;
-    }
-    chat.style.display = "block";
-    setTimeout(() => {
-      console.log("💬 Ouverture du chat...");
-      window.botpress.open();
+      initBotpress();
 
-      // 🩹 Donne le focus à l’iframe du chat pour débloquer le champ de message
+      toggle.addEventListener("click", () => {
+        if (!chatReady) {
+          console.warn("⚠️ Chat pas encore prêt, attente...");
+          return;
+        }
+        chat.style.display = "block";
+        setTimeout(() => {
+          console.log("💬 Ouverture du chat...");
+          window.botpress.open();
+
+          // 🩹 Donne le focus à l’iframe du chat
+          setTimeout(() => {
+            const iframe = document.querySelector("iframe[src*='botpress']");
+            if (iframe) iframe.focus();
+          }, 1000);
+        }, 500);
+      });
+
+      // 🕒 Ouverture automatique du chat après 3 secondes
       setTimeout(() => {
-        const iframe = document.querySelector("iframe[src*='botpress']");
-        if (iframe) iframe.focus();
-      }, 1000);
-    }, 500);
-  });
-
-  // 🕒 Ouverture automatique du chat après 3 secondes
-  setTimeout(() => {
-    console.log("🕒 Ouverture automatique du chat après 3 s");
-    toggle.click();
-  }, 3000);
-});
-</script>
+        console.log("🕒 Ouverture automatique du chat après 3 s");
+        toggle.click();
+      }, 3000);
+    });
+  </script>
 
 </body>
 </html>
