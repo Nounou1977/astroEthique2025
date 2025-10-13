@@ -4,27 +4,145 @@
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <!-- Botpress Webchat : version forcée pour vider le cache -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js?v=2"></script>
+  <script defer src="https://cdn.botpress.cloud/webchat/v3.3/inject.js?v=3"></script>
 
   <style>
-    body{font-family:Arial, sans-serif;margin:1rem;background:#f9f9f9;line-height:1.6;padding-bottom:120px}
-    h1{color:#2e8b57;font-size:1.5rem}
-    section{margin-bottom:2rem}
-    .quiz{border:1px solid #ccc;padding:1rem;background:#fff;border-radius:8px}
-    .btn{background:#2e8b57;color:#fff;padding:1.2rem;border:none;display:block;margin-top:1rem;cursor:pointer;border-radius:8px;font-size:1.1rem;width:100%;font-weight:bold}
-    .btn:active{background:#1a5c34}
-    .quiz ul{list-style:none;padding:0;margin:1rem 0}
-    .quiz li{margin:0.8rem 0}
-    .quiz label{display:flex;align-items:center;padding:1rem;border-radius:8px;border:2px solid #ddd;background:#fff;cursor:pointer;transition:all 0.2s ease;min-height:55px}
-    .quiz label:hover{background:#f0f0f0}
-    .quiz input[type="radio"]{width:24px;height:24px;margin-right:12px;cursor:pointer;flex-shrink:0;accent-color:#2e8b57}
-    .quiz input[type="radio"]:checked + span{font-weight:bold}
-    .quiz label:has(input:checked){background:#d4f1d4;border-color:#2e8b57;box-shadow:0 2px 8px rgba(46,139,87,0.3)}
-    #chatToggle{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#3276EA;color:#fff;border:none;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:1001;cursor:pointer;visibility:hidden}
-    #chatToggle.ready{visibility:visible}
-    #webchat{display:none;position:fixed;bottom:80px;right:20px;width:min(380px, calc(100vw - 40px));height:min(500px, calc(100vh - 100px));z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
-    @media (max-width: 600px){body{margin:0.5rem;padding-bottom:150px}h1{font-size:1.3rem}.quiz{padding:1rem}.quiz label{padding:0.9rem;font-size:0.95rem}.quiz input[type="radio"]{width:22px;height:22px}#webchat{width:calc(100vw - 20px);height:calc(100vh - 100px);bottom:70px;right:10px}#chatToggle{bottom:10px;right:10px}}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 1rem;
+      background: #f9f9f9;
+      line-height: 1.6;
+      padding-bottom: 120px;
+    }
+    h1 {
+      color: #2e8b57;
+      font-size: 1.5rem;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    .quiz {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+    }
+    .btn {
+      background: #2e8b57;
+      color: #fff;
+      padding: 1.2rem;
+      border: none;
+      display: block;
+      margin-top: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      width: 100%;
+      font-weight: bold;
+    }
+    .btn:active {
+      background: #1a5c34;
+    }
+    .quiz ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    .quiz li {
+      margin: 0.8rem 0;
+    }
+    .quiz label {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 2px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 55px;
+    }
+    .quiz label:hover {
+      background: #f0f0f0;
+    }
+    .quiz input[type="radio"] {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      accent-color: #2e8b57;
+    }
+    .quiz input[type="radio"]:checked + span {
+      font-weight: bold;
+    }
+    .quiz label:has(input:checked) {
+      background: #d4f1d4;
+      border-color: #2e8b57;
+      box-shadow: 0 2px 8px rgba(46, 139, 87, 0.3);
+    }
+    #chatToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #3276EA;
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+      z-index: 1001;
+      cursor: pointer;
+      visibility: hidden;
+    }
+    #chatToggle.ready {
+      visibility: visible;
+    }
+    #webchat {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: min(380px, calc(100vw - 40px));
+      height: min(500px, calc(100vh - 100px));
+      z-index: 1000;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+    }
+    @media (max-width: 600px) {
+      body {
+        margin: 0.5rem;
+        padding-bottom: 150px;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .quiz {
+        padding: 1rem;
+      }
+      .quiz label {
+        padding: 0.9rem;
+        font-size: 0.95rem;
+      }
+      .quiz input[type="radio"] {
+        width: 22px;
+        height: 22px;
+      }
+      #webchat {
+        width: calc(100vw - 20px);
+        height: calc(100vh - 100px);
+        bottom: 70px;
+        right: 10px;
+      }
+      #chatToggle {
+        bottom: 10px;
+        right: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -53,6 +171,7 @@
   <div id="webchat"></div>
 
   <script>
+    // --- Quiz simple ---
     const BONNE_REPONSE = "0";
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -61,47 +180,53 @@
       alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
 
-    const toggle = document.getElementById('chatToggle');
-    const chat   = document.getElementById('webchat');
-    let   chatLoaded = false;
-
-    // 1. Initialisation unique
+    // --- Initialisation Botpress Chat ---
     window.addEventListener('DOMContentLoaded', () => {
-      window.botpress.init({
-        "botId": "fb41640b-a827-4e39-8690-4a617035f277",
-        "configuration": {
-          "version": "v2", "website": {}, "email": {}, "phone": {}, "termsOfService": {}, "privacyPolicy": {},
-          "color": "#3276EA", "variant": "solid", "headerVariant": "glass", "themeMode": "light", "fontFamily": "inter",
-          "radius": 4, "feedbackEnabled": false, "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-          "soundEnabled": false, "proactiveMessageEnabled": false, "proactiveBubbleMessage": "Hi! 👋 Need help?",
-          "proactiveBubbleTriggerType": "afterDelay", "proactiveBubbleDelayTime": 10
-        },
-        "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d", "selector": "#webchat"
-      });
+      const toggle = document.getElementById('chatToggle');
+      const chat = document.getElementById('webchat');
+      let chatLoaded = false;
 
-      // 2. Quand prêt → on montre le bouton
-      window.botpress.on('webchat:ready', () => {
-        toggle.classList.add('ready');
-      });
-    });
+      function initBotpress() {
+        if (!window.botpress) {
+          console.warn("Botpress n’est pas encore prêt, nouvel essai...");
+          return setTimeout(initBotpress, 200);
+        }
 
-    // 3. Clic : on ouvre **après** 150 ms (évite blocages navigateurs)
-    toggle.addEventListener('click', () => {
-      if (!chatLoaded) { chatLoaded = true; }
-      chat.style.display = 'block';
-      setTimeout(() => window.botpress.open(), 150);
-    });
-  </script>
+        window.botpress.init({
+          botId: "fb41640b-a827-4e39-8690-4a617035f277",
+          clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+          selector: "#webchat",
+          configuration: {
+            version: "v2",
+            color: "#3276EA",
+            variant: "solid",
+            headerVariant: "glass",
+            themeMode: "light",
+            radius: 4,
+            fontFamily: "inter",
+            footer: "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+            soundEnabled: false,
+            proactiveMessageEnabled: false
+          }
+        });
 
-  <!-- 4. Script pour forcer un chatId au premier chargement -->
-  <script>
-    /* donne un chatId dès le premier chargement */
-    (function(){
-      if (!location.search.includes('id=')) {
-        const id = self.crypto.randomUUID();
-        location.replace('?id='+id);
+        window.botpress.on('webchat:ready', () => {
+          toggle.classList.add('ready');
+        });
+
+        toggle.addEventListener('click', () => {
+          if (!chatLoaded) chatLoaded = true;
+          chat.style.display = 'block';
+          setTimeout(() => window.botpress.open(), 150);
+        });
       }
-    })();
+
+      initBotpress();
+    });
+
+    // --- Génère un ID unique de session (sans recharger la page) ---
+    window.chatId = window.chatId || self.crypto.randomUUID();
   </script>
+
 </body>
 </html>
