@@ -1,9 +1,10 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Botpress Webchat : version forcée pour vider le cache -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js?v=2"></script>
 
   <style>
@@ -20,7 +21,8 @@
     .quiz input[type="radio"]{width:24px;height:24px;margin-right:12px;cursor:pointer;flex-shrink:0;accent-color:#2e8b57}
     .quiz input[type="radio"]:checked + span{font-weight:bold}
     .quiz label:has(input:checked){background:#d4f1d4;border-color:#2e8b57;box-shadow:0 2px 8px rgba(46,139,87,0.3)}
-    #chatToggle{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#3276EA;color:#fff;border:none;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:1001;cursor:pointer}
+    #chatToggle{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:#3276EA;color:#fff;border:none;font-size:24px;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:1001;cursor:pointer;visibility:hidden}
+    #chatToggle.ready{visibility:visible}
     #webchat{display:none;position:fixed;bottom:80px;right:20px;width:min(380px, calc(100vw - 40px));height:min(500px, calc(100vh - 100px));z-index:1000;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.25);}
     @media (max-width: 600px){body{margin:0.5rem;padding-bottom:150px}h1{font-size:1.3rem}.quiz{padding:1rem}.quiz label{padding:0.9rem;font-size:0.95rem}.quiz input[type="radio"]{width:22px;height:22px}#webchat{width:calc(100vw - 20px);height:calc(100vh - 100px);bottom:70px;right:10px}#chatToggle{bottom:10px;right:10px}}
   </style>
@@ -63,7 +65,7 @@
     const chat   = document.getElementById('webchat');
     let   chatLoaded = false;
 
-    // 1. Initialisation **unique**
+    // 1. Initialisation unique
     window.addEventListener('DOMContentLoaded', () => {
       window.botpress.init({
         "botId": "fb41640b-a827-4e39-8690-4a617035f277",
@@ -77,7 +79,7 @@
         "clientId": "380ce8c4-cd1a-4a72-bb32-7df924758c0d", "selector": "#webchat"
       });
 
-      // 2. Dès que prêt → on montre le bouton
+      // 2. Quand prêt → on montre le bouton
       window.botpress.on('webchat:ready', () => {
         toggle.classList.add('ready');
       });
@@ -91,4 +93,4 @@
     });
   </script>
 </body>
-</html>
+</html> 
