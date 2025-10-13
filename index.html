@@ -179,55 +179,58 @@
       if (!choix) { alert('❌ Choisis une réponse avant de valider.'); return; }
       alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
+<!-- ✅ Botpress Webchat – Version stable avec initialisation propre -->
+<script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("chatToggle");
+  const chat = document.getElementById("webchat");
+  let chatReady = false;
 
-    // --- Initialisation Botpress Chat ---
-    window.addEventListener('DOMContentLoaded', () => {
-      const toggle = document.getElementById('chatToggle');
-      const chat = document.getElementById('webchat');
-      let chatLoaded = false;
+  function initBotpress() {
+    if (!window.botpress || !window.botpress.init) {
+      console.log("⏳ Attente du script Botpress...");
+      return setTimeout(initBotpress, 400);
+    }
 
-      function initBotpress() {
-        if (!window.botpress) {
-          console.warn("Botpress n’est pas encore prêt, nouvel essai...");
-          return setTimeout(initBotpress, 200);
-        }
-
-        window.botpress.init({
-          botId: "fb41640b-a827-4e39-8690-4a617035f277",
-          clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-          selector: "#webchat",
-          configuration: {
-            version: "v2",
-            color: "#3276EA",
-            variant: "solid",
-            headerVariant: "glass",
-            themeMode: "light",
-            radius: 4,
-            fontFamily: "inter",
-            footer: "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-            soundEnabled: false,
-            proactiveMessageEnabled: false
-          }
-        });
-
-        window.botpress.on('webchat:ready', () => {
-          toggle.classList.add('ready');
-        });
-
-        toggle.addEventListener('click', () => {
-          if (!chatLoaded) chatLoaded = true;
-          chat.style.display = 'block';
-          setTimeout(() => window.botpress.open(), 150);
-        });
-      }
-
-      initBotpress();
+    console.log("🚀 Initialisation du chatbot...");
+    window.botpress.init({
+      botId: "fb41640b-a827-4e39-8690-4a617035f277",
+      clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+      selector: "#webchat",
+      configuration: {
+        themeMode: "light",
+        color: "#3276EA",
+        variant: "solid",
+        fontFamily: "inter",
+        radius: 4,
+        showCloseButton: true
+      },
     });
 
-    // --- Génère un ID unique de session (sans recharger la page) ---
-    window.chatId = window.chatId || self.crypto.randomUUID();
-  </script>
+    window.botpress.on("webchat:ready", () => {
+      console.log("✅ Chat prêt !");
+      chatReady = true;
+      toggle.classList.add("ready");
+    });
+  }
 
+  initBotpress();
+
+  toggle.addEventListener("click", () => {
+    if (!chatReady) {
+      console.warn("⚠️ Chat pas encore prêt, attente...");
+      return;
+    }
+    chat.style.display = "block";
+    setTimeout(() => {
+      console.log("💬 Ouverture du chat...");
+      window.botpress.open();
+    }, 500);
+  });
+});
+</script>
+ 
 </body>
   <!-- rebuild -->
 
