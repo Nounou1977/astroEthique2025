@@ -62,23 +62,11 @@
       border-color: #2e8b57;
       box-shadow: 0 2px 8px rgba(46, 139, 87, 0.3);
     }
-    #chatToggle {
+    #webchat {
       position: fixed;
       bottom: 20px; right: 20px;
-      width: 56px; height: 56px;
-      border-radius: 50%; background: #3276EA;
-      color: #fff; border: none; font-size: 24px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
-      z-index: 1001; cursor: pointer;
-      visibility: hidden;
-    }
-    #chatToggle.ready { visibility: visible; }
-    #webchat {
-      display: none;
-      position: fixed;
-      bottom: 80px; right: 20px;
       width: min(380px, calc(100vw - 40px));
-      height: min(500px, calc(100vh - 100px));
+      height: min(500px, calc(100vh - 40px));
       z-index: 1000;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
@@ -109,11 +97,9 @@
     </form>
   </section>
 
-  <!-- 💬 Chatbot -->
-  <button id="chatToggle" aria-label="Ouvrir le chat">💬</button>
+  <!-- 💬 Conteneur du chatbot -->
   <div id="webchat"></div>
 
-  <!-- Quiz simple -->
   <script>
     const BONNE_REPONSE = "0";
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
@@ -124,57 +110,33 @@
     });
   </script>
 
-  <!-- ✅ Script du chatbot corrigé pour v3.3 -->
+  <!-- ✅ Initialisation du chatbot Botpress v3.3 -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const toggle = document.getElementById("chatToggle");
-      let chatReady = false;
-
-      function initBotpress() {
-        if (!window.botpressWebChat || !window.botpressWebChat.init) {
-          console.log("⏳ Attente du script Botpress v3...");
-          return setTimeout(initBotpress, 400);
-        }
-
-        console.log("🚀 Initialisation du chatbot (v3.3)...");
-        window.botpressWebChat.init({
-          hostUrl: "https://cdn.botpress.cloud/webchat/v3",
-          botId: "fb41640b-a827-4e39-8690-4a617035f277",
-          clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-          container: "#webchat",
-          theme: "light",
-          showCloseButton: true,
-          hideWidget: true
-        });
-
-        window.botpressWebChat.onEvent(function (event) {
-          if (event.type === "LIFECYCLE.LOADED") {
-            console.log("✅ Chat prêt !");
-            chatReady = true;
-            toggle.classList.add("ready");
-          }
-        });
+      if (!window.botpressWebChat) {
+        console.error("❌ Script Botpress non chargé !");
+        return;
       }
 
-      initBotpress();
-
-      toggle.addEventListener("click", () => {
-        if (!chatReady) return console.warn("⚠️ Chat pas encore prêt...");
-        console.log("💬 Ouverture du chat...");
-        window.botpressWebChat.sendEvent({ type: "show" });
-
-        // 🩹 Fix focus sur champ de saisie
-        setTimeout(() => {
-          const iframe = document.querySelector("iframe[src*='botpress']");
-          if (iframe) iframe.contentWindow.focus();
-        }, 1000);
+      window.botpressWebChat.init({
+        hostUrl: "https://cdn.botpress.cloud/webchat/v3",
+        botId: "fb41640b-a827-4e39-8690-4a617035f277",
+        clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
+        container: "#webchat",
+        theme: "light",
+        showCloseButton: true,
+        hideWidget: false // le chat s’affiche directement
       });
 
-      // 🕒 Ouverture automatique du chat après 3 secondes
-      setTimeout(() => {
-        console.log("🕒 Ouverture automatique du chat après 3 s");
-        toggle.click();
-      }, 3000);
+      // Fix focus sur le champ de saisie après chargement
+      window.botpressWebChat.onEvent((event) => {
+        if (event.type === "LIFECYCLE.LOADED") {
+          setTimeout(() => {
+            const iframe = document.querySelector("iframe[src*='botpress']");
+            if (iframe) iframe.contentWindow.focus();
+          }, 500);
+        }
+      });
     });
   </script>
 
