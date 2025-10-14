@@ -3,43 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <title>5 Faits Étonnants sur les Trous Noirs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- ✅ Script Botpress officiel v3.3 -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
     body {
       font-family: Arial, sans-serif;
-      margin: 1rem;
+      margin: 0;
+      padding: 1rem;
       background: #f9f9f9;
       line-height: 1.6;
-      padding-bottom: 120px;
     }
-    h1 { color: #2e8b57; font-size: 1.5rem; }
-    section { margin-bottom: 2rem; }
+    
+    h1 { 
+      color: #2e8b57; 
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    section { 
+      margin-bottom: 2rem; 
+    }
+    
     .quiz {
       border: 1px solid #ccc;
       padding: 1rem;
       background: #fff;
       border-radius: 8px;
     }
+    
+    .quiz h3 {
+      margin-top: 0;
+    }
+    
     .btn {
       background: #2e8b57;
       color: #fff;
-      padding: 1.2rem;
+      padding: 0.9rem 1.5rem;
       border: none;
-      display: block;
-      margin-top: 1rem;
       cursor: pointer;
       border-radius: 8px;
-      font-size: 1.1rem;
-      width: 100%;
+      font-size: 1rem;
       font-weight: bold;
+      margin: 1rem auto 0;
+      display: block;
+      width: fit-content;
+      min-width: 150px;
+      touch-action: manipulation;
     }
-    .btn:active { background: #1a5c34; }
-    .quiz ul { list-style: none; padding: 0; margin: 1rem 0; }
-    .quiz li { margin: 0.8rem 0; }
+    
+    .btn:active { 
+      background: #1a5c34;
+      transform: scale(0.98);
+    }
+    
+    .quiz ul { 
+      list-style: none; 
+      padding: 0; 
+      margin: 1rem 0; 
+    }
+    
+    .quiz li { 
+      margin: 0.8rem 0; 
+    }
+    
     .quiz label {
       display: flex;
       align-items: center;
@@ -50,32 +81,37 @@
       cursor: pointer;
       transition: all 0.2s ease;
       min-height: 55px;
+      touch-action: manipulation;
     }
-    .quiz label:hover { background: #f0f0f0; }
+    
+    .quiz label:active { 
+      background: #e8e8e8; 
+    }
+    
     .quiz input[type="radio"] {
-      width: 24px; height: 24px; margin-right: 12px;
-      cursor: pointer; flex-shrink: 0; accent-color: #2e8b57;
+      width: 24px; 
+      height: 24px; 
+      margin-right: 12px;
+      cursor: pointer; 
+      flex-shrink: 0; 
+      accent-color: #2e8b57;
     }
-    .quiz input[type="radio"]:checked + span { font-weight: bold; }
+    
+    .quiz input[type="radio"]:checked + span { 
+      font-weight: bold; 
+    }
+    
     .quiz label:has(input:checked) {
       background: #d4f1d4;
       border-color: #2e8b57;
       box-shadow: 0 2px 8px rgba(46, 139, 87, 0.3);
-    }
-    #webchat {
-      position: fixed;
-      bottom: 20px; right: 20px;
-      width: min(380px, calc(100vw - 40px));
-      height: min(500px, calc(100vh - 40px));
-      z-index: 1000;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
     }
   </style>
 </head>
 <body>
 
   <h1>5 Faits Étonnants sur les Trous Noirs</h1>
+  
   <section>
     <p>Les trous noirs ne sont pas des aspirateurs cosmiques mais des objets avec une gravité extrême. Le théorème de Hawking (1974) prouve que leur surface ne peut jamais diminuer.</p>
     <p><strong>Source officielle :</strong> 
@@ -97,48 +133,23 @@
     </form>
   </section>
 
-  <!-- 💬 Conteneur du chatbot -->
-  <div id="webchat"></div>
-
+  <!-- Script de validation du quiz -->
   <script>
     const BONNE_REPONSE = "0";
+    
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const choix = document.querySelector('input[name="reponse"]:checked');
-      if (!choix) { alert('❌ Choisis une réponse avant de valider.'); return; }
+      if (!choix) { 
+        alert('❌ Choisis une réponse avant de valider.'); 
+        return; 
+      }
       alert(choix.value === BONNE_REPONSE ? '✅ Bonne réponse !' : '❌ Mauvaise réponse.');
     });
   </script>
 
-  <!-- ✅ Initialisation du chatbot Botpress v3.3 -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!window.botpressWebChat) {
-        console.error("❌ Script Botpress non chargé !");
-        return;
-      }
-
-      window.botpressWebChat.init({
-        hostUrl: "https://cdn.botpress.cloud/webchat/v3",
-        botId: "fb41640b-a827-4e39-8690-4a617035f277",
-        clientId: "380ce8c4-cd1a-4a72-bb32-7df924758c0d",
-        container: "#webchat",
-        theme: "light",
-        showCloseButton: true,
-        hideWidget: false // le chat s’affiche directement
-      });
-
-      // Fix focus sur le champ de saisie après chargement
-      window.botpressWebChat.onEvent((event) => {
-        if (event.type === "LIFECYCLE.LOADED") {
-          setTimeout(() => {
-            const iframe = document.querySelector("iframe[src*='botpress']");
-            if (iframe) iframe.contentWindow.focus();
-          }, 500);
-        }
-      });
-    });
-  </script>
+  <!-- ✅ Chatbot Tidio -->
+  <script src="//code.tidio.co/rm59wiqidn6z0zezoqjkublk8z9ttkag.js" async></script>
 
 </body>
 </html>
