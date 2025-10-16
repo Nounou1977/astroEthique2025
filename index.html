@@ -3,12 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astro-Éthique 2025 | Découvrez les Mystères de l'Univers</title>
-    <meta name="description" content="Explorez les trous noirs, galaxies et phénomènes cosmiques. Contenu éducatif gratuit avec quiz interactif et assistant IA.">
-    
-    <!-- Ethical Ads Script -->
-    <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
-    
+    <title>Astro-Éthique | Fiches Éducatives sur l'Astronomie</title>
+    <meta name="description" content="Fiches éducatives gratuites sur l'astronomie et l'astrophysique. Trous noirs, planètes, étoiles expliqués simplement avec sources scientifiques.">
     <style>
         * {
             margin: 0;
@@ -17,639 +13,757 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: #1a1a1a;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
             min-height: 100vh;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* Header */
+        /* Header & Navigation */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(10, 14, 39, 0.95);
             backdrop-filter: blur(10px);
-            padding: 20px 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .header-content {
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            flex-wrap: wrap;
         }
         
         .logo {
             font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
         nav a {
-            margin-left: 30px;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
             transition: color 0.3s;
+            font-weight: 500;
         }
         
         nav a:hover {
             color: #667eea;
         }
         
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Page Content */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
         /* Hero Section */
         .hero {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
             border-radius: 20px;
-            padding: 60px 40px;
-            margin: 40px 0;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
         
         .hero p {
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
         
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6);
-        }
-        
-        /* Main Content Layout */
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        /* Articles */
-        .article-card {
-            background: white;
+        /* Content Card */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         }
         
-        .article-card h2 {
-            color: #333;
-            margin-bottom: 20px;
+        .card h1, .card h2 {
+            color: #1a1f3a;
+            margin-bottom: 1rem;
+        }
+        
+        .card h1 {
             font-size: 2rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
-        .article-card p {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-        
-        .article-meta {
+        .card h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-            color: #999;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .tag {
-            background: #f0f0f0;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: #667eea;
+        .card p {
+            margin-bottom: 1rem;
+            color: #555;
         }
         
-        /* Ethical Ads Styling */
-        .ethical-ad-placement {
-            margin: 40px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 1px solid #e9ecef;
+        .intro {
+            background: #f8f9ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 2rem;
         }
         
-        .ethical-ad-label {
-            font-size: 0.75rem;
-            color: #999;
-            text-transform: uppercase;
-            margin-bottom: 10px;
+        /* Ad Placeholder */
+        .ad-space {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 3rem 2rem;
             text-align: center;
+            margin: 2rem 0;
+            color: #667eea;
+            font-weight: 600;
         }
         
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 100px;
-            height: fit-content;
+        .ad-space::before {
+            content: "📢 ";
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
         }
         
-        .sidebar-widget {
-            background: white;
+        /* Facts */
+        .fact {
+            background: #f8f9ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .fact strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Quiz */
+        .quiz {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
             border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .sidebar-widget h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        /* Quiz Section */
-        .quiz-section {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin: 2rem 0;
         }
         
         .quiz-question {
-            margin: 30px 0;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
         }
         
         .quiz-question h3 {
-            color: #333;
-            margin-bottom: 15px;
+            color: #1a1f3a;
+            margin-bottom: 1rem;
         }
         
         .quiz-options {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 0.5rem;
         }
         
         .quiz-option {
-            padding: 15px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
+            padding: 1rem;
+            background: #f8f9ff;
+            border: 2px solid transparent;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
         }
         
         .quiz-option:hover {
-            background: #667eea;
-            color: white;
             border-color: #667eea;
+            background: white;
         }
         
         .quiz-option.selected {
-            background: #667eea;
-            color: white;
             border-color: #667eea;
+            background: white;
         }
         
-        .quiz-option.correct {
-            background: #28a745;
+        .validate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-color: #28a745;
-        }
-        
-        .quiz-option.incorrect {
-            background: #dc3545;
-            color: white;
-            border-color: #dc3545;
-        }
-        
-        .submit-quiz {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 15px 40px;
             border: none;
-            border-radius: 50px;
-            font-weight: bold;
+            padding: 1rem 3rem;
+            border-radius: 30px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.3s;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
         
-        .submit-quiz:hover {
-            transform: translateY(-2px);
+        .validate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
         
-        .quiz-result {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
+        /* Landing Page Styles */
+        .landing-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
             text-align: center;
-            display: none;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .quiz-result.show {
-            display: block;
+        .landing-hero::before {
+            content: "🎉";
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
         }
         
-        .quiz-score {
-            font-size: 3rem;
-            font-weight: bold;
+        .landing-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 0.8s;
+        }
+        
+        .landing-hero .score {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 1rem 0;
+            animation: scaleIn 1s;
+        }
+        
+        .gift-box {
+            background: white;
+            color: #1a1f3a;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gift-box h2 {
             color: #667eea;
-            margin: 20px 0;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .gift-item {
+            background: #f8f9ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .gift-item h3 {
+            color: #4caf50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+        
+        .affiliate-section {
+            background: #fff3cd;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 2rem 0;
+        }
+        
+        .affiliate-section h3 {
+            color: #1a1f3a;
+            margin-bottom: 1rem;
+        }
+        
+        .product-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-img {
+            width: 100px;
+            height: 100px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-info h4 {
+            color: #1a1f3a;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-info .price {
+            color: #4caf50;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+        }
+        
+        .affiliate-btn {
+            background: linear-gradient(135deg, #ff9800 0%, #ff6b00 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .affiliate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        /* Sources */
+        .sources {
+            background: #fff3cd;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .sources ul {
+            margin-left: 1.5rem;
+        }
+        
+        .sources a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .sources a:hover {
+            text-decoration: underline;
         }
         
         /* Newsletter */
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .newsletter-form input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        
-        .newsletter-form button {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .newsletter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
         }
         
-        .newsletter-form button:hover {
+        .newsletter input {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 400px;
+            margin: 1rem 0;
+        }
+        
+        .newsletter button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .newsletter button:hover {
             transform: translateY(-2px);
         }
         
         /* Footer */
         footer {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px 0;
-            margin-top: 60px;
-            border-radius: 20px 20px 0 0;
+            background: rgba(10, 14, 39, 0.95);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
             text-align: center;
-            color: #666;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #667eea;
+        }
+        
+        /* Legal Pages */
+        .legal-content {
+            line-height: 1.8;
+        }
+        
+        .legal-content h2 {
+            margin-top: 2rem;
+            color: #667eea;
+        }
+        
+        .legal-content ul {
+            margin-left: 2rem;
+            margin-top: 0.5rem;
         }
         
         /* Responsive */
-        @media (max-width: 968px) {
-            .main-layout {
-                grid-template-columns: 1fr;
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
             }
             
-            .sidebar {
-                position: static;
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
             }
             
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
-            nav {
-                display: none;
+            .card {
+                padding: 1.5rem;
             }
-        }
-        
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .product-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .landing-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .landing-hero .score {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header & Navigation -->
     <header>
-        <div class="header-content">
-            <div class="logo">🌌 Astro-Éthique 2025</div>
-            <nav>
-                <a href="#accueil">Accueil</a>
-                <a href="#articles">Articles</a>
-                <a href="#quiz">Quiz</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
+        <nav>
+            <div class="logo">
+                <span>🌌</span>
+                <span>Astro-Éthique</span>
+            </div>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Accueil</a></li>
+                <li><a href="#" onclick="showPage('fiche')">Fiches</a></li>
+                <li><a href="#" onclick="showPage('about')">À propos</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div class="container">
-        <!-- Hero Section -->
-        <section class="hero" id="accueil">
-            <h1>Explorez les Mystères de l'Univers</h1>
-            <p>Découvrez les trous noirs, les galaxies lointaines et les phénomènes cosmiques fascinants. Contenu éducatif gratuit et sans publicité intrusive.</p>
-            <a href="#quiz" class="cta-button">Testez vos connaissances 🚀</a>
-        </section>
-
-        <!-- Main Layout -->
-        <div class="main-layout">
-            <!-- Main Content -->
-            <main>
-                <!-- Article Section -->
-                <article class="article-card" id="articles">
-                    <div class="article-meta">
-                        <span>📅 14 octobre 2025</span>
-                        <span class="tag">Astronomie</span>
-                        <span class="tag">Trous Noirs</span>
-                    </div>
-                    
-                    <h2>5 Faits Étonnants sur les Trous Noirs</h2>
-                    
-                    <p>Les trous noirs sont parmi les objets les plus fascinants de l'univers. Contrairement à ce que leur nom suggère, ils ne sont pas des "aspirateurs cosmiques" qui engloutissent tout sur leur passage. Ce sont plutôt des régions de l'espace où la gravité est si intense que rien, pas même la lumière, ne peut s'en échapper une fois franchi l'horizon des événements.</p>
-                    
-                    <!-- ETHICAL AD #1 - Après introduction -->
-                    <div class="ethical-ad-placement">
-                        <div class="ethical-ad-label">Publicité éthique</div>
-                        <div data-ea-publisher="astro-ethique-2025" data-ea-type="image"></div>
-                    </div>
-                    
-                    <h3>1. Le Théorème de Hawking (1974)</h3>
-                    <p>Le physicien Stephen Hawking a prouvé que la surface d'un trou noir ne peut jamais diminuer, un concept similaire à l'entropie en thermodynamique. Ce théorème révolutionnaire a changé notre compréhension de ces objets mystérieux.</p>
-                    
-                    <h3>2. Le Rayonnement de Hawking</h3>
-                    <p>Paradoxalement, les trous noirs ne sont pas complètement "noirs". Ils émettent un rayonnement thermique extrêmement faible appelé rayonnement de Hawking, ce qui signifie qu'ils peuvent théoriquement s'évaporer sur des échelles de temps astronomiques.</p>
-                    
-                    <h3>3. La Dilatation du Temps</h3>
-                    <p>Près de l'horizon des événements, le temps ralentit considérablement par rapport à un observateur distant. Si vous pouviez observer quelqu'un tomber dans un trou noir, vous le verriez figé à jamais à l'approche de l'horizon.</p>
-                    
-                    <!-- ETHICAL AD #2 - Milieu d'article -->
-                    <div class="ethical-ad-placement">
-                        <div class="ethical-ad-label">Publicité éthique</div>
-                        <div data-ea-publisher="astro-ethique-2025" data-ea-type="text"></div>
-                    </div>
-                    
-                    <h3>4. Les Trous Noirs Supermassifs</h3>
-                    <p>Au centre de presque toutes les grandes galaxies, y compris notre Voie Lactée, se trouve un trou noir supermassif. Celui de notre galaxie, Sagittarius A*, possède une masse équivalente à 4 millions de soleils.</p>
-                    
-                    <h3>5. La Première Image</h3>
-                    <p>En 2019, l'Event Horizon Telescope a capturé la première image directe d'un trou noir, situé au centre de la galaxie M87. Cette image historique a confirmé des décennies de théories.</p>
-                    
-                    <p><strong>Source officielle :</strong> <a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank">Wikipédia – Trou noir</a></p>
-                    
-                    <!-- ETHICAL AD #3 - Fin d'article -->
-                    <div class="ethical-ad-placement">
-                        <div class="ethical-ad-label">Publicité éthique</div>
-                        <div data-ea-publisher="astro-ethique-2025" data-ea-type="image"></div>
-                    </div>
-                </article>
-
-                <!-- Quiz Section -->
-                <section class="quiz-section" id="quiz">
-                    <h2>🎯 Testez vos Connaissances sur les Trous Noirs</h2>
-                    <p>Répondez aux questions ci-dessous et découvrez votre niveau d'expertise !</p>
-                    
-                    <div class="quiz-question" data-question="1">
-                        <h3>Question 1 : Quelle est la caractéristique principale du rayonnement de Hawking ?</h3>
-                        <div class="quiz-options">
-                            <div class="quiz-option" data-answer="correct">Il permet aux trous noirs de s'évaporer lentement</div>
-                            <div class="quiz-option" data-answer="wrong">Il rend les trous noirs visibles à l'œil nu</div>
-                            <div class="quiz-option" data-answer="wrong">Il augmente la masse du trou noir</div>
-                            <div class="quiz-option" data-answer="wrong">Il attire plus de matière vers le trou noir</div>
-                        </div>
-                    </div>
-                    
-                    <div class="quiz-question" data-question="2">
-                        <h3>Question 2 : Que se passe-t-il avec le temps près de l'horizon des événements ?</h3>
-                        <div class="quiz-options">
-                            <div class="quiz-option" data-answer="wrong">Le temps s'accélère</div>
-                            <div class="quiz-option" data-answer="correct">Le temps ralentit considérablement</div>
-                            <div class="quiz-option" data-answer="wrong">Le temps s'inverse</div>
-                            <div class="quiz-option" data-answer="wrong">Le temps reste normal</div>
-                        </div>
-                    </div>
-                    
-                    <div class="quiz-question" data-question="3">
-                        <h3>Question 3 : Combien de masses solaires représente Sagittarius A* ?</h3>
-                        <div class="quiz-options">
-                            <div class="quiz-option" data-answer="wrong">4 mille masses solaires</div>
-                            <div class="quiz-option" data-answer="correct">4 millions de masses solaires</div>
-                            <div class="quiz-option" data-answer="wrong">4 milliards de masses solaires</div>
-                            <div class="quiz-option" data-answer="wrong">400 masses solaires</div>
-                        </div>
-                    </div>
-                    
-                    <button class="submit-quiz" onclick="submitQuiz()">Voir mon score 📊</button>
-                    
-                    <div class="quiz-result" id="quizResult">
-                        <h3>Votre résultat</h3>
-                        <div class="quiz-score" id="quizScore">0/3</div>
-                        <p id="quizMessage"></p>
-                        
-                        <!-- ETHICAL AD #4 - Après résultat quiz -->
-                        <div class="ethical-ad-placement" style="margin-top: 30px;">
-                            <div class="ethical-ad-label">Publicité éthique</div>
-                            <div data-ea-publisher="astro-ethique-2025" data-ea-type="image"></div>
-                        </div>
-                        
-                        <p style="margin-top: 20px;">Recevez plus de contenu éducatif chaque semaine !</p>
-                        <div class="newsletter-form">
-                            <input type="email" placeholder="votre@email.com" id="newsletterEmail">
-                            <button onclick="subscribeNewsletter()">S'abonner</button>
-                        </div>
-                    </div>
-                </section>
-            </main>
-
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <!-- Sticky Ad Widget -->
-                <div class="sidebar-widget">
-                    <div class="ethical-ad-label">Publicité éthique</div>
-                    <div data-ea-publisher="astro-ethique-2025" 
-                         data-ea-type="image"
-                         data-ea-style="stickybox"></div>
-                </div>
-                
-                <!-- Newsletter Widget -->
-                <div class="sidebar-widget">
-                    <h3>📬 Newsletter Hebdomadaire</h3>
-                    <p>Recevez les dernières découvertes astronomiques directement dans votre boîte mail.</p>
-                    <div class="newsletter-form">
-                        <input type="email" placeholder="votre@email.com">
-                        <button>✓</button>
-                    </div>
-                </div>
-                
-                <!-- Popular Articles -->
-                <div class="sidebar-widget">
-                    <h3>📚 Articles Populaires</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                            <a href="#" style="text-decoration: none; color: #333;">🌟 Les étoiles à neutrons</a>
-                        </li>
-                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                            <a href="#" style="text-decoration: none; color: #333;">🌌 La matière noire</a>
-                        </li>
-                        <li style="padding: 10px 0;">
-                            <a href="#" style="text-decoration: none; color: #333;">🔭 Les exoplanètes</a>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <!-- Footer Ad -->
-            <div class="ethical-ad-placement" style="max-width: 600px; margin: 0 auto 30px;">
-                <div class="ethical-ad-label">Publicité éthique</div>
-                <div data-ea-publisher="astro-ethique-2025" data-ea-type="text"></div>
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>🌌 Bienvenue sur Astro-Éthique</h1>
+                <p>Fiches éducatives gratuites sur l'astronomie et l'astrophysique</p>
             </div>
             
-            <p>&copy; 2025 Astro-Éthique. Contenu éducatif sous licence CC BY-SA 4.0</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                <a href="#" style="color: #667eea; text-decoration: none;">Mentions légales</a> | 
-                <a href="#" style="color: #667eea; text-decoration: none;">Politique de confidentialité</a> | 
-                <a href="#" style="color: #667eea; text-decoration: none;">Contact</a>
-            </p>
-            <p style="margin-top: 20px; font-size: 0.85rem; color: #999;">
-                Publicité éthique fournie par <a href="https://www.ethicalads.io/" target="_blank" style="color: #667eea;">EthicalAds</a> - 
-                Respect de votre vie privée, pas de tracking
-            </p>
+            <div class="card">
+                <h2>🎯 Notre Mission</h2>
+                <p>Rendre l'astronomie accessible à tous à travers des <strong>fiches claires, concises et scientifiquement rigoureuses</strong>.</p>
+                
+                <h2>📚 Fiches Disponibles</h2>
+                <div class="fact">
+                    <strong>🌑 Trous Noirs : 5 Faits Étonnants</strong>
+                    <p>Découvrez ce que la science a révélé sur ces objets fascinants. Quiz inclus avec cadeaux à gagner !</p>
+                    <button class="validate-btn" onclick="showPage('fiche')">Lire la fiche →</button>
+                </div>
+                
+                <div class="newsletter">
+                    <h2>📧 Recevez les nouvelles fiches</h2>
+                    <p>Soyez informé quand une nouvelle fiche est publiée</p>
+                    <input type="email" placeholder="Votre email">
+                    <br>
+                    <button>S'inscrire</button>
+                </div>
+                
+                <h2>🚀 Prochaines Fiches</h2>
+                <ul style="margin-left: 2rem; color: #555;">
+                    <li>Les étoiles à neutrons : quand la matière devient extrême</li>
+                    <li>Les galaxies : types et formations</li>
+                    <li>Le Big Bang expliqué simplement</li>
+                    <li>Choisir son premier télescope</li>
+                </ul>
+            </div>
         </div>
-    </footer>
 
-    <script>
-        // Quiz functionality
-        let selectedAnswers = {};
-        
-        document.querySelectorAll('.quiz-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const question = this.closest('.quiz-question');
-                const questionNum = question.dataset.question;
+        <!-- FICHE PAGE -->
+        <div id="fiche" class="page">
+            <div class="card">
+                <h1>🌌 5 Faits Étonnants sur les Trous Noirs</h1>
                 
-                // Deselect all options in this question
-                question.querySelectorAll('.quiz-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
+                <div class="intro">
+                    <p><strong>📚 Introduction</strong></p>
+                    <p>Les trous noirs fascinent autant qu'ils effraient. Contrairement aux idées reçues, <strong>ce ne sont pas des aspirateurs cosmiques</strong> qui avalent tout sur leur passage ! Un trou noir est un objet astronomique dont la gravité est si intense que rien, pas même la lumière, ne peut s'en échapper une fois passé son horizon des événements.</p>
+                    <p>Découvrez 5 faits scientifiquement prouvés qui vont changer votre vision de ces objets mystérieux.</p>
+                    <p><strong>🎁 Bonus : Répondez au quiz pour recevoir votre guide gratuit !</strong></p>
+                </div>
                 
-                // Select this option
-                this.classList.add('selected');
-                selectedAnswers[questionNum] = this.dataset.answer;
-            });
-        });
-        
-        function submitQuiz() {
-            let correct = 0;
-            let total = 0;
-            
-            document.querySelectorAll('.quiz-question').forEach(question => {
-                const questionNum = question.dataset.question;
-                total++;
+                <!-- AD SPACE 1 -->
+                <div class="ad-space">
+                    ESPACE PUBLICITAIRE ETHICALADS #1
+                    <br><small>Code à insérer après validation</small>
+                </div>
                 
-                question.querySelectorAll('.quiz-option').forEach(option => {
-                    if (option.dataset.answer === 'correct') {
-                        option.classList.add('correct');
-                        if (selectedAnswers[questionNum] === 'correct') {
-                            correct++;
-                        }
-                    } else if (option.classList.contains('selected')) {
-                        option.classList.add('incorrect');
-                    }
-                });
-            });
+                <h2>🔬 Fait #1 : Les trous noirs ne sont pas des aspirateurs</h2>
+                <div class="fact">
+                    <strong>Idée reçue :</strong>
+                    <p>Un trou noir aspire tout dans l'univers comme un aspirateur géant.</p>
+                    
+                    <strong>Réalité scientifique :</strong>
+                    <p>Si le Soleil devenait un trou noir (ce qui n'arrivera jamais !), la Terre continuerait à orbiter exactement comme aujourd'hui. La gravité d'un trou noir fonctionne comme celle de n'importe quel objet : plus vous êtes loin, moins vous êtes attiré.</p>
+                </div>
+                
+                <h2>📐 Fait #2 : Le théorème de Hawking (1974)</h2>
+                <div class="fact">
+                    <p>Le célèbre physicien Stephen Hawking a prouvé mathématiquement que <strong>la surface d'un trou noir ne peut jamais diminuer</strong>. C'est le "théorème de l'aire".</p>
+                </div>
+                
+                <h2>⚡ Fait #3 : Le rayonnement de Hawking</h2>
+                <div class="fact">
+                    <p>Les trous noirs <strong>ne sont pas complètement noirs</strong> ! Ils émettent un rayonnement quantique très faible appelé "rayonnement de Hawking".</p>
+                </div>
+                
+                <h2>🌀 Fait #4 : La déformation de l'espace-temps</h2>
+                <div class="fact">
+                    <p>Un trou noir <strong>déforme l'espace et le temps</strong> eux-mêmes. Le temps ralentit près d'un trou noir et la lumière est courbée autour.</p>
+                </div>
+                
+                <h2>🎯 Fait #5 : Sagittarius A*</h2>
+                <div class="fact">
+                    <p>Au centre de notre galaxie se trouve <strong>Sagittarius A*</strong>, un trou noir supermassif de <strong>4 millions de masses solaires</strong> à 26 000 années-lumière de la Terre.</p>
+                </div>
+                
+                <!-- AD SPACE 2 -->
+                <div class="ad-space">
+                    ESPACE PUBLICITAIRE ETHICALADS #2
+                    <br><small>Code à insérer après validation</small>
+                </div>
+                
+                <!-- QUIZ -->
+                <div class="quiz">
+                    <h2>🧠 Quiz : Testez vos connaissances !</h2>
+                    <p style="text-align: center; color: #667eea; font-weight: 600; margin-bottom: 1.5rem;">🎁 Répondez correctement et recevez votre guide gratuit !</p>
+                    
+                    <div class="quiz-question">
+                        <h3>Question 1 : Quelle est la caractéristique principale du rayonnement de Hawking ?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this, 'q1', 'A')">A) Il rend les trous noirs visibles à l'œil nu</div>
+                            <div class="quiz-option" onclick="selectOption(this, 'q1', 'B')">B) Il permet aux trous noirs de "s'évaporer" lentement</div>
+                            <div class="quiz-option" onclick="selectOption(this, 'q1', 'C')">C) Il augmente la masse du trou noir</div>
+                            <div class="quiz-option" onclick="selectOption(this, 'q1', 'D')">D) Il transforme les trous noirs en étoiles</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h3>Question 2 : Si le Soleil devenait un trou noir, que se passerait-il pour la Terre ?</h3>
+                        <div class="quiz-options">
+                            <div class="quiz-option" onclick="selectOption(this, 'q2', 'A')">A) Elle serait aspirée immédiatement</div>
+                            <div class="quiz-option" onclick="selectOption(this, 'q2', 'B')">B) Elle continuerait à orbiter normalement</div>
+                            <div class="quiz-option" onclick="selectOption(this, 'q2', 'C')">C) Elle serait éjectée du système solaire</div>
+                            <div class="quiz-option" onclick="selectOption(this, 'q2', 'D')">D) Elle gèlerait instantanément</div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button class="validate-btn" onclick="validateQuiz()">🎁 VALIDER ET RECEVOIR MON CADEAU</button>
+                    </div>
+                </div>
+                
+                <!-- SOURCES -->
+                <div class="sources">
+                    <h2>📖 Sources scientifiques officielles</h2>
+                    <ul>
+                        <li><a href="https://fr.wikipedia.org/wiki/Trou_noir" target="_blank">Wikipédia – Trou noir</a></li>
+                        <li><a href="https://www.nasa.gov/black-holes" target="_blank">NASA – Black Holes</a></li>
+                        <li>Hawking, S. (1974). "Black hole explosions?". Nature 248: 30–31.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- LANDING PAGE CADEAU -->
+        <div id="landing" class="page">
+            <div class="landing-hero">
+                <h1>🎉 BRAVO ! Vous avez réussi !</h1>
+                <div class="score" id="scoreDisplay">2/2</div>
+                <p style="font-size: 1.2rem;">Vous maîtrisez parfaitement les trous noirs !</p>
+            </div>
             
-            // Show result
-            const resultDiv = document.getElementById('quizResult');
-            const scoreDiv = document.getElementById('quizScore');
-            const messageDiv = document.getElementById('quizMessage');
-            
-            scoreDiv.textContent = `${correct}/${total}`;
-            
-            let message = '';
-            if (correct === total) {
-                message = '🎉 Parfait ! Vous êtes un expert en trous noirs !';
-            } else if (correct >= total * 0.6) {
-                message = '👍 Très bien ! Vous avez de solides connaissances.';
-            } else {
-                message = '📚 Continuez à apprendre, l\'univers est fascinant !';
-            }
-            
-            messageDiv.textContent = message;
-            resultDiv.classList.add('show');
-            
-            // Scroll to result
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Disable submit button
-            document.querySelector('.submit-quiz').disabled = true;
-            document.querySelector('.submit-quiz').textContent = 'Quiz terminé ✓';
-        }
-        
-        function subscribeNewsletter() {
-            const email = document.getElementById('newsletterEmail').value;
-            if (email && email.includes('@')) {
-                alert('Merci ! Vous êtes inscrit à notre newsletter 🚀');
-                document.getElementById('newsletterEmail').value = '';
-            } else {
-                alert('Veuillez entrer une adresse email valide.');
-            }
-        }
-        
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+            <div class="card">
+                <!-- AD SPACE LANDING -->
+                <div class="ad-space">
+                    ESPACE PUBLICITAIRE ETHICALADS #3
+                    <br><small>Très haute visibilité - Page de conversion</small>
+                </div>
+                
+                <div class="gift-box">
+                    <h2>🎁 Votre cadeau GRATUIT est prêt !</h2>
+                    
+                    <div class="gift-item">
+                        <h3>📘 Guide PDF "Les 10 Mystères des Trous Noirs Expliqués"</h3>
+                        <p><strong>Au programme :</strong></p>
+                        <ul style="margin-left: 1.5rem; color: #555;">
+                            <li>Comment détecter un trou noir invisible</li>
+                            <li>Les voyages dans le temps sont-ils possibles ?</li>
+                            <li>Que se passe-t-il à l'intérieur d'un trou noir ?</li>
+                            <li>Les trous de ver existent-ils vraiment ?</li>
+                            <li>+ 6 autres mystères fascinants</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>📄 Format :</strong> PDF de 15 pages illustré | <strong>📚 Valeur :</strong> 9,99€ → GRATUIT</p>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="#" class="download-btn">📥 TÉLÉCHARGER MON GUIDE GRATUIT</a>
+                        </div>
+                    </div>
+                    
+                    <div class="gift-item" style="border-left-color: #667eea;">
+                        <h3>🌟 Wallpaper HD "Trou Noir M87"</h3>
+                        <p>Photo exclusive prise par le télescope Event Horizon • Résolution 4K • Parfait pour fond d'écran</p>
+                        <div style="text-align: center; margin-top: 1rem;">
+                            <a href="#" class="download-btn">📥 TÉLÉCHARGER LE WALLPAPER</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AD SPACE 2 LANDING -->
+                <div class="ad-space">
+                    ESPACE PUBLICITAIRE ETHICALADS #4
+                    <br><small>Deuxième emplacement haute conversion</small>
+                </div>
+                
+                <!-- SECTION AFFILIATION -->
+                <div class="affiliate-section">
+                    <h3>📚 Pour aller plus loin : Nos recommandations</h3>
+                    <p>Vous avez aimé cette fiche ? Voici nos ressources préférées pour continuer votre exploration de l'astrophysique :</p>
