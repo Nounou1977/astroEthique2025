@@ -1,0 +1,43 @@
+{
+  "product": {
+    "name": "Les Mystères des Trous Noirs - astroEthique2025",
+    "description": "Un voyage captivant au cœur de l'univers invisible. Plongez dans l'univers fascinant des trous noirs avec cet eBook exceptionnel qui transforme la science complexe en aventure accessible. De la relativité d'Einstein aux paradoxes quantiques, découvrez les secrets les plus profonds du cosmos à travers un récit captivant illustré de magnifiques images générées par IA.",
+    "price": {
+      "amount": 1200,
+      "currency": "EUR"
+    },
+    "category": "ebooks",
+    "tags": [
+      "astronomy",
+      "astrophysics", 
+      "black holes",
+      "science education",
+      "cosmology",
+      "physics",
+      "space exploration",
+      "scientific popularization"
+    ],
+    "custom_fields": {
+      "format": "PDF",
+      "pages": "~150",
+      "language": "Français",
+      "images": "13 illustrations",
+      "publisher": "astroEthique2025"
+    },
+    "content_warnings": {
+      "mature_themes": false,
+      "explicit_content": false,
+      "violence": false
+    },
+    "is_hidden": false,
+    "is_archived": false,
+    "is_physical": false,
+    "file_name": "Les_Mysteres_des_Trous_Noirs_astroEthique2025.pdf"
+  },
+  "marketing": {
+    "twitter_message": "🌌 Nouveau eBook : Les Mystères des Trous Noirs ! Un voyage captivant au cœur de l'univers invisible avec astroEthique2025. Science accessible et images spectaculaires ! 🚀",
+    "facebook_message": "Découvrez l'univers fascinant des trous noirs avec ce nouvel eBook exceptionnel ! De la relativité d'Einstein aux paradoxes quantiques, une aventure scientifique captivante vous attend.",
+    "email_subject": "🌌 Nouveau eBook : Les Mystères des Trous Noirs",
+    "email_body": "Bonjour !\n\nJe suis ravi de partager avec vous mon nouvel eBook 'Les Mystères des Trous Noirs' qui transforme la science complexe en aventure accessible.\n\n✨ Ce qui rend cet eBook unique :\n- Écrit avec passion et accessibilité\n- 13 images cosmiques uniques\n- Ton narratif captivant\n- Contenu scientifiquement rigoureux\n\nParfait pour les passionnés d'astronomie, les étudiants et tous les curieux qui veulent comprendre l'univers !\n\nBonne lecture !\nastroEthique2025"
+  }
+}
